@@ -1,1 +1,5 @@
-export { PAGES_DATA, PAGES_NAMES } from './pages-data';
+export { ButtonTypes } from './button-types';
+export { InputNames } from './input-names';
+export { InputTypes } from './input-types';
+export { PAGES_DATA } from './pages-data';
+export { PagesNames } from './pages-names';

@@ -1,11 +1,9 @@
-import { PAGES_NAMES } from '../constants';
-import type { ErrorPageProps, NavigatePageProps } from './pages';
-
-export type PagesNames = keyof typeof PAGES_NAMES;
+import type { PagesNames } from '../constants';
+import type { ErrorPageProps, NavigatePageProps, AuthPageProps } from './pages';
 
 export type PagesData = {
   [key in PagesNames]: {
     template: string;
-    data?: ErrorPageProps | NavigatePageProps;
+    data?: AuthPageProps | ErrorPageProps | NavigatePageProps;
   };
 };

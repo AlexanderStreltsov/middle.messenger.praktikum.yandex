@@ -6,6 +6,7 @@
   --second-color: #e4edfd;
   --error-color: #ff2f2f;
   --text-color: #1e1e1e;
+  --text-reverse-color: #fff;
   --text-secondary-color: #999;
   --main-background-color: #fff;
 }
@@ -20,4 +21,5 @@ body {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+  box-sizing: border-box;
 }

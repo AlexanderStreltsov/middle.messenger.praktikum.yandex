@@ -1,8 +1,14 @@
-import type { PagesNames } from './pages-data';
+import type { PagesNames } from '../constants';
+import type { ButtonProps, InputProps } from './components';
+
+export interface AuthPageProps {
+  title: string;
+  inputs: InputProps[];
+  actions: ButtonProps[];
+}
 
 export interface ErrorPageProps {
-  buttonLabel: string;
-  buttonType: string;
+  action: ButtonProps;
   subTitle: string;
   title: string;
 }
