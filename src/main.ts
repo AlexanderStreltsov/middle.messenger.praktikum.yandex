@@ -1,9 +1,8 @@
 import Handlebars from 'handlebars';
 
 import * as Components from './components';
-import { PAGES_DATA, PAGES_NAMES } from './constants';
+import { PAGES_DATA, PagesNames } from './constants';
 import * as Layout from './layout';
-import type { PagesNames } from './types';
 
 import './styles/style.css';
 
@@ -18,17 +17,19 @@ const navigate = (page: PagesNames) => {
   container.innerHTML = template(data);
 };
 
-document.addEventListener('DOMContentLoaded', () => navigate('navigate'));
-
 document.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  evt.stopImmediatePropagation();
+
   const page = (evt.target as HTMLElement).getAttribute(
     'page'
   ) as PagesNames | null;
 
-  if (page && PAGES_NAMES[page]) {
+  if (page && PagesNames[page]) {
     navigate(page);
-
-    evt.preventDefault();
-    evt.stopImmediatePropagation();
   }
 });
+
+document.addEventListener('DOMContentLoaded', () =>
+  navigate(PagesNames.navigate)
+);

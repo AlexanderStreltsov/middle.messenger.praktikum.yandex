@@ -1,2 +1,1 @@
-export type { ErrorPageProps } from './pages';
-export type { PagesNames, PagesData } from './pages-data';
+export type { PagesData } from './pages-data';

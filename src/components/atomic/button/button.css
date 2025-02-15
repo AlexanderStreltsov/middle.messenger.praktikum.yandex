@@ -7,11 +7,18 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  text-align: center;
+}
+
+.button__primary {
+  background-color: var(--main-color);
+  color: var(--text-reverse-color);
+  font-size: 13px;
+  line-height: 13px;
 }
 
 .button__link {
   color: var(--main-color);
   font-size: 11px;
   line-height: 11px;
-  text-align: center;
 }
