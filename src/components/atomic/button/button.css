@@ -22,7 +22,6 @@
   font-size: 11px;
   line-height: 11px;
 }
-
 .button__link_red {
   color: var(--link-red-color);
 }
@@ -48,3 +47,4 @@
 .button__arrow_right {
   background-image: url(../../../assets/icons/arrow-right.svg);
 }
+
