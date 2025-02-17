@@ -1,5 +1,10 @@
-import type { PagesNames } from '../constants';
-import type { ButtonProps, InputProps } from './components';
+import type { PagesNames, ProfilePageActionsGroupType } from '../constants';
+import type {
+  AvatarProps,
+  ButtonProps,
+  InputProps,
+  InputRowProps,
+} from './components';
 
 export interface AuthPageProps {
   title: string;
@@ -8,9 +13,9 @@ export interface AuthPageProps {
 }
 
 export interface ErrorPageProps {
-  action: ButtonProps;
-  subTitle: string;
   title: string;
+  subTitle: string;
+  action: ButtonProps;
 }
 
 export interface NavigatePageProps {
@@ -18,4 +23,20 @@ export interface NavigatePageProps {
     page: PagesNames;
     title: string;
   }[];
+}
+
+export interface ProfilePageProps {
+  nav: {
+    action: ButtonProps;
+  };
+  section: {
+    title?: string;
+    isShowTitle: boolean;
+    avatar: AvatarProps;
+    inputs: InputRowProps[];
+    actions: {
+      groupType: ProfilePageActionsGroupType;
+      buttons: ButtonProps[];
+    };
+  };
 }

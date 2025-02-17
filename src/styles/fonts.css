@@ -7,3 +7,12 @@
   font-display: auto;
   font-weight: 500;
 }
+
+@font-face {
+  src: url(../assets/fonts/inter/inter-latin-500-normal.woff2) format('woff2'),
+    url(../assets/fonts/inter/inter-latin-500-normal.woff) format('woff');
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: auto;
+  font-weight: 500;
+}

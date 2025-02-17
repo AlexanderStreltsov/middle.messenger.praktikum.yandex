@@ -18,7 +18,7 @@
 
 .input__element {
   border: none;
-  padding: 0%;
+  padding: 0;
   border-bottom: 1px solid var(--main-color);
   font-size: 13px;
   line-height: 13px;

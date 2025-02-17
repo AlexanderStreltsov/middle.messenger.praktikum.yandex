@@ -1,0 +1,9 @@
+.avatar-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-avatar-color);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

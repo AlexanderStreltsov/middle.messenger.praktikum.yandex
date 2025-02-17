@@ -22,3 +22,29 @@
   font-size: 11px;
   line-height: 11px;
 }
+
+.button__link_red {
+  color: var(--link-red-color);
+}
+
+.button__arrow {
+  background-color: var(--main-color);
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+}
+
+.button__arrow_left,
+.button__arrow_right {
+  background-position: center;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+}
+
+.button__arrow_left {
+  background-image: url(../../../assets/icons/arrow-left.svg);
+}
+
+.button__arrow_right {
+  background-image: url(../../../assets/icons/arrow-right.svg);
+}
