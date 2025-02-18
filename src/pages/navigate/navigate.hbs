@@ -1,10 +1,12 @@
 {{#> MainLayout}}
 <section class="navigate-wrapper">
   <h1>Список страниц</h1>
-  <ul>
-    {{#each pages}}
-    <li><a href="#" page={{page}}>{{title}}</a></li>
-    {{/each}}
-  </ul>
+  <nav>
+    <ul>
+      {{#each pages}}
+      <li><a href="#" page={{page}}>{{title}}</a></li>
+      {{/each}}
+    </ul>
+  </nav>
 </section>
 {{/ MainLayout}}
