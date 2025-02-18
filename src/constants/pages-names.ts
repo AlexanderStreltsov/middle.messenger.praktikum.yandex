@@ -4,4 +4,8 @@ export enum PagesNames {
   navigate = 'navigate',
   signin = 'signin',
   signup = 'signup',
+  profile = 'profile',
+  'profile-edit' = 'profile-edit',
+  'profile-pass-edit' = 'profile-pass-edit',
+  chat = 'chat',
 }

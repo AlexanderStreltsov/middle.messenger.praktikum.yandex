@@ -1,0 +1,50 @@
+.button {
+  background-color: initial;
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.button__primary {
+  background-color: var(--main-color);
+  color: var(--text-reverse-color);
+  font-size: 13px;
+  line-height: 13px;
+}
+
+.button__link {
+  color: var(--main-color);
+  font-size: 11px;
+  line-height: 11px;
+}
+.button__link_red {
+  color: var(--link-red-color);
+}
+
+.button__arrow {
+  background-color: var(--main-color);
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+}
+
+.button__arrow_left,
+.button__arrow_right {
+  background-position: center;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+}
+
+.button__arrow_left {
+  background-image: url(../../assets/icons/arrow-left.svg);
+}
+
+.button__arrow_right {
+  background-image: url(../../assets/icons/arrow-right.svg);
+}
+

@@ -1,9 +1,20 @@
 import type { PagesNames } from '../constants';
-import type { ErrorPageProps, NavigatePageProps, AuthPageProps } from './pages';
+import type {
+  ErrorPageProps,
+  NavigatePageProps,
+  AuthPageProps,
+  ProfilePageProps,
+  ChatPageProps,
+} from './pages';
 
 export type PagesData = {
   [key in PagesNames]: {
     template: string;
-    data?: AuthPageProps | ErrorPageProps | NavigatePageProps;
+    data?:
+      | AuthPageProps
+      | ChatPageProps
+      | ErrorPageProps
+      | NavigatePageProps
+      | ProfilePageProps;
   };
 };

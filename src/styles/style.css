@@ -9,6 +9,11 @@
   --text-reverse-color: #fff;
   --text-secondary-color: #999;
   --main-background-color: #fff;
+  --secondary-background-color: #fbfbfb;
+  --border-gray-color: #eaeaea;
+  --background-avatar-color: #efefef;
+  --link-red-color: #ff0000;
+  --message-gray-color: #f8f8f8;
 }
 
 body {

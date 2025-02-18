@@ -18,8 +18,8 @@
 
 .input__element {
   border: none;
-  padding: 0%;
-  border-bottom: 1px solid var(--main-color);
+  padding: 0;
+  border-bottom: 1px solid var(--border-gray-color);
   font-size: 13px;
   line-height: 13px;
   font-weight: 500;
@@ -29,6 +29,13 @@
 
 .input__element:focus-visible {
   outline: none;
+}
+
+.input__element:focus {
+  border-bottom: 1px solid var(--main-color);
+  position: relative;
+  top: 1px;
+  transition: border-bottom 0.2s linear;
 }
 
 .input__text-error {
