@@ -20,7 +20,6 @@
 
 .profile-section__wrapper {
   width: 510px;
-  min-height: 550px;
   display: flex;
   flex-direction: column;
 }
@@ -42,7 +41,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex-grow: 1;
   margin-top: 40px;
 }
 
@@ -66,6 +64,10 @@
   flex-direction: column;
 }
 
+.profile-form__actions_list {
+  margin-top: 20px;
+}
+
 .profile-form__actions_list button {
   padding: 10px 0;
   text-align: start;
@@ -80,6 +82,7 @@
 .profile-form__actions_element {
   display: flex;
   align-items: center;
+  margin-top: 80px;
 }
 
 .profile-form__actions_element button {

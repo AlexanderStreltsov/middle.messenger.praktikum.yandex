@@ -1,4 +1,11 @@
-import { ErrorPage, NavigatePage, AuthPage, ProfilePage } from '../pages';
+import defaultAvatar from '../assets/icons/default.svg';
+import {
+  ErrorPage,
+  NavigatePage,
+  AuthPage,
+  ProfilePage,
+  ChatPage,
+} from '../pages';
 import type { PagesData } from '../types';
 import { PagesNames } from './pages-names';
 import { ButtonTypes } from './button-types';
@@ -8,6 +15,9 @@ import {
   PROFILE_PAGE_NAV,
   PROFILE_EDIT_PAGE_SECTION_COMMON,
 } from './profile-page-data';
+import { CHAT_MESSAGES_NAV } from './chat-messages-nav';
+import { ButtonArrows } from './button-arrows';
+import { CHAT_MESSAGES } from './chat-messages';
 
 export const PAGES_DATA: PagesData = {
   [PagesNames.navigate]: {
@@ -16,6 +26,7 @@ export const PAGES_DATA: PagesData = {
       pages: [
         { page: PagesNames.signin, title: 'Логин' },
         { page: PagesNames.signup, title: 'Регистрация' },
+        { page: PagesNames.chat, title: 'Чат' },
         { page: PagesNames.profile, title: 'Профиль' },
         {
           page: PagesNames['profile-edit'],
@@ -70,6 +81,32 @@ export const PAGES_DATA: PagesData = {
           type: ButtonTypes.LINK,
         },
       ],
+    },
+  },
+  [PagesNames.chat]: {
+    template: ChatPage,
+    data: {
+      nav: {
+        action: { type: ButtonTypes.LINK, label: 'Профиль >' },
+        search: INPUTS_DEFAULT.search,
+        messages: CHAT_MESSAGES_NAV,
+      },
+      section: {
+        header: {
+          avatar: {
+            src: defaultAvatar,
+            alt: '',
+          },
+          name: 'Test Testovich',
+        },
+        messages: CHAT_MESSAGES,
+        input: INPUTS_DEFAULT.message,
+        action: {
+          label: '',
+          type: ButtonTypes.ARROW,
+          arrow: ButtonArrows.RIGHT,
+        },
+      },
     },
   },
   [PagesNames.profile]: {

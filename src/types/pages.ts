@@ -4,6 +4,8 @@ import type {
   ButtonProps,
   InputProps,
   InputRowProps,
+  ChatMessageNavProps,
+  ChatMessageProps,
 } from './components';
 
 export interface AuthPageProps {
@@ -38,5 +40,22 @@ export interface ProfilePageProps {
       groupType: ProfilePageActionsGroupType;
       buttons: ButtonProps[];
     };
+  };
+}
+
+export interface ChatPageProps {
+  nav: {
+    action: ButtonProps;
+    search: InputProps;
+    messages: ChatMessageNavProps[];
+  };
+  section: {
+    header: {
+      avatar: AvatarProps;
+      name: string;
+    };
+    messages: ChatMessageProps[];
+    input: InputProps;
+    action: ButtonProps;
   };
 }

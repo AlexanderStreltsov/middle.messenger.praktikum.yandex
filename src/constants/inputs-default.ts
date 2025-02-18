@@ -58,4 +58,16 @@ export const INPUTS_DEFAULT: Record<string, InputProps> = {
     name: InputNames.PASS_CONFIRM,
     type: InputTypes.PASS,
   },
+  search: {
+    label: 'Поиск',
+    placeholder: 'Поиск',
+    name: InputNames.SEARCH,
+    type: InputTypes.SEARCH,
+  },
+  message: {
+    label: 'Сообщение',
+    placeholder: 'Сообщение',
+    name: InputNames.MESSAGE,
+    type: InputTypes.TEXT,
+  },
 };

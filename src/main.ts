@@ -3,11 +3,12 @@ import Handlebars from 'handlebars';
 import * as Components from './components';
 import { PAGES_DATA, PagesNames } from './constants';
 import * as Layout from './layout';
+import * as ChatComponents from './pages/chat/components';
 
 import './styles/style.css';
 
-Object.entries({ ...Components, ...Layout }).forEach(([name, template]) =>
-  Handlebars.registerPartial(name, template)
+Object.entries({ ...Components, ...Layout, ...ChatComponents }).forEach(
+  ([name, template]) => Handlebars.registerPartial(name, template)
 );
 
 const navigate = (page: PagesNames) => {

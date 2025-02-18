@@ -4,6 +4,7 @@ import type {
   NavigatePageProps,
   AuthPageProps,
   ProfilePageProps,
+  ChatPageProps,
 } from './pages';
 
 export type PagesData = {
@@ -11,6 +12,7 @@ export type PagesData = {
     template: string;
     data?:
       | AuthPageProps
+      | ChatPageProps
       | ErrorPageProps
       | NavigatePageProps
       | ProfilePageProps;

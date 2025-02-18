@@ -1,3 +1,4 @@
+import defaultAvatar from '../assets/icons/default.svg';
 import { ButtonTypes } from './button-types';
 import { ButtonArrows } from './button-arrows';
 import { ProfilePageActionsGroupType } from './profile-page-actions';
@@ -11,10 +12,7 @@ export const PROFILE_PAGE_NAV = {
 };
 
 export const PROFILE_EDIT_PAGE_SECTION_COMMON = {
-  avatar: {
-    src: 'src/assets/icons/default.svg',
-    alt: '',
-  },
+  avatar: { src: defaultAvatar, alt: '' },
   isShowTitle: false,
   actions: {
     groupType: ProfilePageActionsGroupType.ELEMENT,

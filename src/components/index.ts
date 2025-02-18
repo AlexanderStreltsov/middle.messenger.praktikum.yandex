@@ -1,4 +1,5 @@
-export { Avatar } from './atomic/avatar';
-export { Button } from './atomic/button';
-export { Input } from './atomic/input';
-export { InputRow } from './atomic/input-row';
+export { Avatar } from './avatar';
+export { Button } from './button';
+export { Input } from './input';
+export { InputRow } from './input-row';
+export { Badge } from './badge';

@@ -9,4 +9,6 @@ export enum InputNames {
   SECOND_NAME = 'second_name',
   OLD_PASSWORD = 'oldPassword',
   NEW_PASSWORD = 'newPassword',
+  SEARCH = 'search',
+  MESSAGE = 'message',
 }
