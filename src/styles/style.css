@@ -1,0 +1,30 @@
+@import url(./normalize.css);
+@import url(./fonts.css);
+
+:root {
+  --main-color: #3369f3;
+  --second-color: #e4edfd;
+  --error-color: #ff2f2f;
+  --text-color: #1e1e1e;
+  --text-reverse-color: #fff;
+  --text-secondary-color: #999;
+  --main-background-color: #fff;
+  --secondary-background-color: #fbfbfb;
+  --border-gray-color: #eaeaea;
+  --background-avatar-color: #efefef;
+  --link-red-color: #ff0000;
+  --message-gray-color: #f8f8f8;
+}
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: var(--main-background-color);
+  color: var(--text-color);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+}

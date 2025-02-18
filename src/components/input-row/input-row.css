@@ -1,0 +1,39 @@
+.input-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-gray-color);
+}
+
+.input-row:last-child {
+  border-bottom: none;
+}
+
+.input-row__label {
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 500;
+}
+
+.input-row__element {
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 500;
+  color: var(--text-secondary-color);
+  padding-bottom: 7px;
+  text-align: right;
+  background-color: inherit;
+}
+
+.input-row__element:focus-visible {
+  outline: none;
+}
+
+.input-row__element:focus {
+  border-bottom: 1px solid var(--main-color);
+  position: relative;
+  top: 1px;
+  transition: border-bottom 0.2s linear;
+}
