@@ -3,7 +3,6 @@ import type {
   AvatarProps,
   ButtonProps,
   InputProps,
-  InputRowProps,
   ChatMessageNavProps,
   ChatMessageProps,
 } from './components';
@@ -35,7 +34,7 @@ export interface ProfilePageProps {
     title?: string;
     isShowTitle: boolean;
     avatar: AvatarProps;
-    inputs: InputRowProps[];
+    inputs: InputProps[];
     actions: {
       groupType: ProfilePageActionsGroupType;
       buttons: ButtonProps[];

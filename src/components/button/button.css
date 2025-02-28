@@ -22,6 +22,7 @@
   font-size: 11px;
   line-height: 11px;
 }
+
 .button__link_red {
   color: var(--link-red-color);
 }
@@ -41,10 +42,9 @@
 }
 
 .button__arrow_left {
-  background-image: url(../../assets/icons/arrow-left.svg);
+  background-image: url('../../assets/icons/arrow-left.svg');
 }
 
 .button__arrow_right {
-  background-image: url(../../assets/icons/arrow-right.svg);
+  background-image: url('../../assets/icons/arrow-right.svg');
 }
-

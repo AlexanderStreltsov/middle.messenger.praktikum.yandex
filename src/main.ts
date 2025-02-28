@@ -8,7 +8,7 @@ import * as ChatComponents from './pages/chat/components';
 import './styles/style.css';
 
 Object.entries({ ...Components, ...Layout, ...ChatComponents }).forEach(
-  ([name, template]) => Handlebars.registerPartial(name, template)
+  ([name, template]) => Handlebars.registerPartial(name, template),
 );
 
 const navigate = (page: PagesNames) => {
@@ -23,7 +23,7 @@ document.addEventListener('click', (evt) => {
   evt.stopImmediatePropagation();
 
   const page = (evt.target as HTMLElement).getAttribute(
-    'page'
+    'page',
   ) as PagesNames | null;
 
   if (page && PagesNames[page]) {
@@ -32,5 +32,5 @@ document.addEventListener('click', (evt) => {
 });
 
 document.addEventListener('DOMContentLoaded', () =>
-  navigate(PagesNames.navigate)
+  navigate(PagesNames.navigate),
 );

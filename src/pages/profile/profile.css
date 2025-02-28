@@ -60,8 +60,6 @@
   margin: 0;
   padding: 0;
   border: none;
-  display: flex;
-  flex-direction: column;
 }
 
 .profile-form__actions_list {
@@ -75,10 +73,6 @@
   border-radius: 0;
 }
 
-.profile-form__actions_list button:last-child {
-  border: none;
-}
-
 .profile-form__actions_element {
   display: flex;
   align-items: center;
@@ -87,4 +81,8 @@
 
 .profile-form__actions_element button {
   max-width: 280px;
+}
+
+.profile-form__actions_list button:last-child {
+  border: none;
 }

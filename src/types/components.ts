@@ -27,8 +27,6 @@ export interface InputProps {
   placeholder?: string;
 }
 
-export interface InputRowProps extends InputProps {}
-
 interface BadgeProps {
   label: string;
 }

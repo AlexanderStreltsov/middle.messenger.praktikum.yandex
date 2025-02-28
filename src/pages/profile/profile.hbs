@@ -8,7 +8,7 @@
       {{> Avatar src=section.avatar.src alt=section.avatar.alt}}
     </div>
     {{#if section.isShowTitle}}
-    <h1>{{section.title}}</h1>
+    <h1>{{ section.title }}</h1>
     {{/if}}
     <form>
       <fieldset class="profile-form__data">
@@ -16,7 +16,11 @@
         {{> InputRow label=label name=name type=type}}
         {{/each}}
       </fieldset>
-      <fieldset class="profile-form__actions profile-form__actions_{{section.actions.groupType}}">
+      <fieldset
+        class="profile-form__actions profile-form__actions_{{
+          section.actions.groupType
+        }}"
+      >
         {{#each section.actions.buttons}}
         {{> Button label=label type=type isLinkRed=isLinkRed}}
         {{/each}}

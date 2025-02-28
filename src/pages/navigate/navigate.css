@@ -24,7 +24,7 @@
   margin: 12px 0;
 }
 
-.navigate-wrapper li:before {
+.navigate-wrapper li::before {
   content: '# ';
 }
 
