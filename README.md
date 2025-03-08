@@ -1,6 +1,8 @@
-# Веб-приложение «Чат» &middot; [![Test Status sprint_1](https://github.com/AlexanderStreltsov/middle.messenger.praktikum.yandex/actions/workflows/tests.yml/badge.svg?branch=sprint_1)](https://github.com/AlexanderStreltsov/middle.messenger.praktikum.yandex/actions) [![Netlify Status](https://api.netlify.com/api/v1/badges/060f48ca-4105-4d28-b28f-29be3452c369/deploy-status?branch=deploy)](https://app.netlify.com/sites/streltsov-middle-messenger-yp/deploys)
+# Веб-приложение «Чат» &middot; [![Test Status sprint_2](https://github.com/AlexanderStreltsov/middle.messenger.praktikum.yandex/actions/workflows/tests.yml/badge.svg?branch=sprint_2)](https://github.com/AlexanderStreltsov/middle.messenger.praktikum.yandex/actions) [![Netlify Status](https://api.netlify.com/api/v1/badges/060f48ca-4105-4d28-b28f-29be3452c369/deploy-status?branch=deploy)](https://app.netlify.com/sites/streltsov-middle-messenger-yp/deploys)
 
-Реализация верстки приложения с помощью шаблонизатора handlebars. На главной странице отображается список страниц при загрузке приложения.
+Реализация верстки приложения с помощью шаблонизатора handlebars.
+Добавлен класс Block для реализации страниц и компонентов приложения.
+На главной странице отображается список всех страниц.
 
 ## Дизайн
 
@@ -15,6 +17,8 @@
 Запустить проект в режиме разработки: `npm run dev`
 
 Запустить проект на localhost: `npm run start`
+
+Запустить общую проверку кода `npm run check`
 
 ## Netlify
 
