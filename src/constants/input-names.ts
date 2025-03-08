@@ -11,4 +11,5 @@ export enum InputNames {
   NEW_PASSWORD = 'newPassword',
   SEARCH = 'search',
   MESSAGE = 'message',
+  AVATAR = 'avatar',
 }

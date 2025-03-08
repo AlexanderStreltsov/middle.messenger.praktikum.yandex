@@ -1,5 +1,5 @@
 export enum ButtonTypes {
-  LINK = 'link',
-  PRIMARY = 'primary',
-  ARROW = 'arrow',
+  BUTTON = 'button',
+  SUBMIT = 'submit',
+  RESET = 'reset',
 }

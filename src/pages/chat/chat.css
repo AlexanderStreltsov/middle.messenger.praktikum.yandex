@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   padding-top: 10px;
+  min-width: 330px;
 }
 
 .chat-nav button {
@@ -40,98 +41,16 @@
   font-weight: 500;
 }
 
-.chat-nav ul,
-.chat-main-section ul {
+.chat-nav ul {
   padding: 0;
   margin: 0;
 }
 
-.chat-nav li,
-.chat-main-section li {
+.chat-nav li {
   list-style-type: none;
 }
 
-.chat-main-section {
-  padding: 10px 20px;
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.chat-main-section__header {
-  display: grid;
-  grid-template-columns: 40px auto;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 10px;
-  border-bottom: solid 1px var(--border-gray-color);
-}
-
-.chat-main-section__header > div {
-  width: 40px;
-  height: 40px;
-}
-
-.chat-main-section__header img {
-  width: 20px;
-  height: 20px;
-}
-
-.chat-main-section__header h2 {
-  margin: 0;
-  font-size: 13px;
-  line-height: 13px;
-  font-weight: bold;
-}
-
-.chat-main-section__form {
-  display: grid;
-  grid-template-columns: auto 30px;
-  gap: 10px;
-  align-items: center;
-  border-top: solid 1px var(--border-gray-color);
-  padding-top: 10px;
-}
-
-.chat-main-section__form input {
-  background-color: var(--background-avatar-color);
-  color: var(--text-main-color);
-  outline: none;
-  border: 0;
-  padding: 10px 20px;
-  border-radius: 30px;
-  font-size: 12px;
-  line-height: 12px;
-  font-weight: 500;
-}
-
-.chat-main-section__form input::placeholder {
-  color: var(--text-secondary-color);
-  font-size: 12px;
-  line-height: 12px;
-  font-weight: 500;
-}
-
-.chat-main-section__messages {
-  flex-grow: 1;
-  gap: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.chat-main-section__messages-wrapper {
-  display: flex;
-  width: 100%;
-}
-
-.chat-main-section__messages-wrapper_my {
-  justify-content: flex-end;
-}
-
-.chat-main-section__messages-wrapper_other {
-  justify-content: flex-start;
+.chat-nav__search input:focus {
+  border: 1px solid var(--main-color);
+  transition: border 0.2s linear;
 }

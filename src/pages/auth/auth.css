@@ -34,20 +34,10 @@
   gap: 60px;
 }
 
-.auth-form__data {
-  display: flex;
-  flex-direction: column;
+.auth-form__fields {
   gap: 20px;
-  margin: 0;
-  padding: 0;
-  border: none;
 }
 
-.auth-form__actions {
-  display: flex;
-  flex-direction: column;
+.auth-form__controls {
   gap: 2px;
-  margin: 0;
-  padding: 0;
-  border: none;
 }

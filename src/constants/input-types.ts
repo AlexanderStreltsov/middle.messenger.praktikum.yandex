@@ -5,4 +5,5 @@ export enum InputTypes {
   SEARCH = 'search',
   TEL = 'tel',
   TEXT = 'text',
+  FILE = 'file',
 }

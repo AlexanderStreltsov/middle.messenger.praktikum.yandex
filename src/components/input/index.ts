@@ -1,2 +1,3 @@
 import './input.css';
-export { default as Input } from './input.hbs?raw';
+export { InputField } from './input-field';
+export type { InputFieldProps, InputProps } from './input.types';

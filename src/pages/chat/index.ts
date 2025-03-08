@@ -1,2 +1,4 @@
 import './chat.css';
-export { default as ChatPage } from './chat.hbs?raw';
+export { ChatPage } from './chat';
+export type { ChatPageProps } from './chat.types';
+export type { MessageProps, ChatItemProps } from './components';
