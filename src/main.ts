@@ -1,36 +1,31 @@
-import Handlebars from 'handlebars';
-
-import * as Components from './components';
-import { PAGES_DATA, PagesNames } from './constants';
-import * as Layout from './layout';
-import * as ChatComponents from './pages/chat/components';
-
+import { PAGES_DATA, PagesNames, type PagesDataUnionProps } from './constants';
 import './styles/style.css';
-
-Object.entries({ ...Components, ...Layout, ...ChatComponents }).forEach(
-  ([name, template]) => Handlebars.registerPartial(name, template)
-);
 
 const navigate = (page: PagesNames) => {
   const container = document.getElementById('app')!;
-  const { template: pageTemplate, data } = PAGES_DATA[page];
-  const template = Handlebars.compile<typeof data>(pageTemplate);
-  container.innerHTML = template(data);
+  container!.innerHTML = '';
+
+  const { template: Page, props } = PAGES_DATA[page];
+  const source = new Page(props as PagesDataUnionProps).getContent();
+
+  if (source) {
+    container!.appendChild(source);
+  }
 };
 
 document.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  evt.stopImmediatePropagation();
-
   const page = (evt.target as HTMLElement).getAttribute(
-    'page'
+    'page',
   ) as PagesNames | null;
 
   if (page && PagesNames[page]) {
     navigate(page);
+
+    evt.preventDefault();
+    evt.stopImmediatePropagation();
   }
 });
 
 document.addEventListener('DOMContentLoaded', () =>
-  navigate(PagesNames.navigate)
+  navigate(PagesNames.navigate),
 );

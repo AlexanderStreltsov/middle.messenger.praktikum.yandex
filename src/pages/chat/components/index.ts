@@ -1,2 +1,7 @@
-export { ChatMessageNav } from './chat-message-nav';
-export { ChatMessage } from './chat-message';
+export { ChatMessages, type ChatMessagesProps } from './chat-messages';
+export {
+  ChatList,
+  type ChatListProps,
+  type MessageProps,
+  type ChatItemProps,
+} from './chat-list';

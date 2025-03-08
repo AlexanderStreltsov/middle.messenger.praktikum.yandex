@@ -3,6 +3,7 @@
   width: 100%;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-gray-color);
+  position: relative;
 }
 
 .input-row:last-child {
@@ -31,9 +32,26 @@
   outline: none;
 }
 
-.input-row__element:focus {
+.input-row:focus-within {
   border-bottom: 1px solid var(--main-color);
-  position: relative;
-  top: 1px;
   transition: border-bottom 0.2s linear;
+}
+
+.input-row:has(.error) .input-row__element,
+.input-row:has(.error) .input-row__label {
+  color: var(--error-color);
+}
+
+.input-row:has(.error) {
+  border-bottom: 1px solid var(--error-color);
+}
+
+.input-row__error {
+  position: absolute;
+  bottom: -12px;
+  right: 0;
+  color: var(--error-color);
+  font-size: 8px;
+  line-height: 8px;
+  font-weight: 400;
 }

@@ -1,2 +1,3 @@
 import './error.css';
-export { default as ErrorPage } from './error.hbs?raw';
+export { ErrorPage } from './error';
+export type { ErrorPageProps } from './error.types';

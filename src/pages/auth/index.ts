@@ -1,2 +1,3 @@
 import './auth.css';
-export { default as AuthPage } from './auth.hbs?raw';
+export { AuthPage } from './auth';
+export type { AuthPageProps } from './auth.types';
