@@ -2,6 +2,7 @@ export { ButtonTypes } from './button-types';
 export { ButtonViewTypes } from './button-view-types';
 export { EventNames } from './event-names';
 export { ChatMessageTypes } from './chat-message-types';
+export { FETCH_METHODS } from './fetch-methods';
 export { HTMLElements } from './html-elements';
 export { InputNames } from './input-names';
 export { InputTypes } from './input-types';
