@@ -44,47 +44,44 @@
   margin-top: 40px;
 }
 
-.profile-form__data {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin: 0;
-  padding: 0;
-  border: none;
+.profile-form__fields {
+  gap: 20px;
 }
 
-.profile-form__actions {
-  display: flex;
-  flex-direction: column;
+.profile-form__controls {
   gap: 2px;
-  margin: 0;
-  padding: 0;
-  border: none;
-  display: flex;
-  flex-direction: column;
 }
 
-.profile-form__actions_list {
+.profile-section__wrapper form .profile-form__controls_list {
   margin-top: 20px;
 }
 
-.profile-form__actions_list button {
+.profile-form__controls_list button {
   padding: 10px 0;
   text-align: start;
   border-bottom: solid 1px var(--border-gray-color);
   border-radius: 0;
 }
 
-.profile-form__actions_list button:last-child {
-  border: none;
-}
-
-.profile-form__actions_element {
+.profile-section__wrapper form .profile-form__controls_element {
   display: flex;
   align-items: center;
   margin-top: 80px;
 }
 
-.profile-form__actions_element button {
+.profile-form__controls_element button {
   max-width: 280px;
+}
+
+.profile-form__controls_list button:last-child {
+  border: none;
+}
+
+.profile-section__modal-form-fields .input .input__element,
+.profile-section__modal-form-fields .input:has(.error) .input__element:focus {
+  border-bottom: none;
+}
+
+.profile-section__modal-form-fields .input__error {
+  display: none;
 }
