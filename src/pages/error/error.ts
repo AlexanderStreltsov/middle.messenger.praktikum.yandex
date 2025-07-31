@@ -1,6 +1,8 @@
 import { Button } from '../../components';
-import { HTMLElements } from '../../constants';
+import { HTMLElements, NamesGoEvent } from '../../constants';
 import { Block, type BlockProps } from '../../core';
+import { withRouter } from '../../hocs';
+import { getGoEvent } from '../../utils';
 import type { ErrorPageProps } from './error.types';
 
 export class ErrorPage extends Block<HTMLElement, ErrorPageProps & BlockProps> {
@@ -8,7 +10,10 @@ export class ErrorPage extends Block<HTMLElement, ErrorPageProps & BlockProps> {
     super(HTMLElements.MAIN, {
       ...props,
       className: 'content',
-      Button: new Button(props.control),
+      Button: new Button({
+        ...props.control,
+        onClick: getGoEvent(NamesGoEvent.goSignin, props),
+      }),
     });
   }
 
@@ -22,3 +27,9 @@ export class ErrorPage extends Block<HTMLElement, ErrorPageProps & BlockProps> {
     `;
   }
 }
+
+const ErrorPageWithRouter = withRouter(ErrorPage) as unknown as new (
+  props: ErrorPageProps,
+) => Block & ErrorPage;
+
+export default ErrorPageWithRouter;

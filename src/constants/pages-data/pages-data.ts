@@ -1,19 +1,23 @@
 import {
   ErrorPage,
-  NavigatePage,
   AuthPage,
   ProfilePage,
   ChatPage,
+  AuthPageClass,
+  ErrorPageClass,
+  ProfilePageClass,
+  ChatPageClass,
   type AuthPageProps,
   type ProfilePageProps,
   type ErrorPageProps,
-  type NavigatePageProps,
   type ChatPageProps,
 } from '../../pages';
 import { PagesNames } from '../pages-names';
 import { ButtonTypes } from '../button-types';
 import { ButtonViewTypes } from '../button-view-types';
+import { Block } from '../../core';
 import { ProfilePageActionsGroupType } from '../profile-page-actions';
+import { RoutesNames } from '../routes-names';
 import { FIELDS_AUTH } from './fields-auth';
 import { FIELDS_DEFAULT } from './fields-default';
 import { FIELDS_PROFILE } from './fields-profile';
@@ -30,52 +34,40 @@ import { PROFILE_PAGE_NAV, PROFILE_PAGE_COMMON } from './profile-page-common';
 import { CONTROLS_PROFILE_CHANGE_AVATAR } from './controls-profile-change-avatar';
 import { CHAT_MESSAGES } from './chat-messages';
 
-export type PagesDataUnionProps = ErrorPageProps &
-  AuthPageProps &
+export type PagesDataProps =
+  | ErrorPageProps
+  | AuthPageProps
+  | ProfilePageProps
+  | ChatPageProps;
+
+export type PagesDataUnionProps = AuthPageProps &
+  ErrorPageProps &
   ProfilePageProps &
-  NavigatePageProps &
   ChatPageProps;
+
+export type PagesDataTemplates =
+  | (AuthPageClass & Block)
+  | (ErrorPageClass & Block)
+  | (ProfilePageClass & Block)
+  | (ChatPageClass & Block);
+
+export type PagesDataTemplatesConstructor =
+  | typeof AuthPage
+  | typeof ErrorPage
+  | typeof ProfilePage
+  | typeof ChatPage;
 
 type PagesData = {
   [key in PagesNames]: {
-    template:
-      | typeof ErrorPage
-      | typeof AuthPage
-      | typeof ProfilePage
-      | typeof NavigatePage
-      | typeof ChatPage;
-    props:
-      | ErrorPageProps
-      | AuthPageProps
-      | ProfilePageProps
-      | NavigatePageProps
-      | ChatPageProps;
+    route: RoutesNames;
+    template: PagesDataTemplatesConstructor;
+    props: PagesDataProps;
   };
 };
 
 export const PAGES_DATA: PagesData = {
-  [PagesNames.navigate]: {
-    template: NavigatePage,
-    props: {
-      pages: [
-        { page: PagesNames.signin, title: 'Логин' },
-        { page: PagesNames.signup, title: 'Регистрация' },
-        { page: PagesNames.chat, title: 'Чат' },
-        { page: PagesNames.profile, title: 'Профиль' },
-        {
-          page: PagesNames['profile-edit'],
-          title: '# Профиль (изменить данные)',
-        },
-        {
-          page: PagesNames['profile-pass-edit'],
-          title: '## Профиль (изменить пароль)',
-        },
-        { page: PagesNames.error404, title: '404' },
-        { page: PagesNames.error500, title: '500' },
-      ],
-    },
-  },
   [PagesNames.signin]: {
+    route: RoutesNames.signin,
     template: AuthPage,
     props: {
       title: 'Вход',
@@ -84,6 +76,7 @@ export const PAGES_DATA: PagesData = {
     },
   },
   [PagesNames.signup]: {
+    route: RoutesNames.signup,
     template: AuthPage,
     props: {
       title: 'Регистрация',
@@ -100,6 +93,7 @@ export const PAGES_DATA: PagesData = {
     },
   },
   [PagesNames.chat]: {
+    route: RoutesNames.chat,
     template: ChatPage,
     props: {
       controlProfile: CONTROL_CHAT_TO_PROFILE.profile,
@@ -115,6 +109,7 @@ export const PAGES_DATA: PagesData = {
     },
   },
   [PagesNames.profile]: {
+    route: RoutesNames.profile,
     template: ProfilePage,
     props: {
       ...PROFILE_PAGE_NAV,
@@ -145,6 +140,7 @@ export const PAGES_DATA: PagesData = {
     },
   },
   [PagesNames['profile-edit']]: {
+    route: RoutesNames.profileEdit,
     template: ProfilePage,
     props: {
       ...PROFILE_PAGE_NAV,
@@ -160,6 +156,7 @@ export const PAGES_DATA: PagesData = {
     },
   },
   [PagesNames['profile-pass-edit']]: {
+    route: RoutesNames.profilePass,
     template: ProfilePage,
     props: {
       ...PROFILE_PAGE_NAV,
@@ -180,6 +177,7 @@ export const PAGES_DATA: PagesData = {
     },
   },
   [PagesNames.error404]: {
+    route: RoutesNames.error404,
     template: ErrorPage,
     props: {
       title: '404',
@@ -194,6 +192,7 @@ export const PAGES_DATA: PagesData = {
     },
   },
   [PagesNames.error500]: {
+    route: RoutesNames.error500,
     template: ErrorPage,
     props: {
       title: '500',

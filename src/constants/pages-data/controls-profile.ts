@@ -1,4 +1,5 @@
 import { ButtonProps } from '../../components';
+import { NamesGoEvent } from '../names-go-event';
 import { ButtonTypes } from '../button-types';
 import { ButtonViewTypes } from '../button-view-types';
 
@@ -9,6 +10,7 @@ export const CONTROLS_PROFILE: Record<string, ButtonProps> = {
     attrs: {
       type: ButtonTypes.BUTTON,
     },
+    nameGoEvent: NamesGoEvent.goProfileEdit,
   },
   editPass: {
     label: 'Изменить пароль',
@@ -16,6 +18,7 @@ export const CONTROLS_PROFILE: Record<string, ButtonProps> = {
     attrs: {
       type: ButtonTypes.BUTTON,
     },
+    nameGoEvent: NamesGoEvent.goProfilePass,
   },
   out: {
     label: 'Выйти',

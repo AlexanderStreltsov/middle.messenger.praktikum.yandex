@@ -1,31 +1,17 @@
-import { PAGES_DATA, PagesNames, type PagesDataUnionProps } from './constants';
+import {
+  APP_ROOT_ELEMENT,
+  PAGES_DATA,
+  PagesNames,
+  type PagesDataUnionProps,
+} from './constants';
+import { Router } from './core';
 import './styles/style.css';
 
-const navigate = (page: PagesNames) => {
-  const container = document.getElementById('app')!;
-  container!.innerHTML = '';
+window.router = new Router(APP_ROOT_ELEMENT);
 
-  const { template: Page, props } = PAGES_DATA[page];
-  const source = new Page(props as PagesDataUnionProps).getContent();
+for (const key in PAGES_DATA) {
+  const { route, template, props } = PAGES_DATA[key as PagesNames];
+  window.router.use(route, template, props as PagesDataUnionProps);
+}
 
-  if (source) {
-    container!.appendChild(source);
-  }
-};
-
-document.addEventListener('click', (evt) => {
-  const page = (evt.target as HTMLElement).getAttribute(
-    'page',
-  ) as PagesNames | null;
-
-  if (page && PagesNames[page]) {
-    navigate(page);
-
-    evt.preventDefault();
-    evt.stopImmediatePropagation();
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () =>
-  navigate(PagesNames.navigate),
-);
+window.router.start();

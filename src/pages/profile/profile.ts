@@ -1,7 +1,13 @@
 import { Button, Form, Modal } from '../../components';
-import { HTMLElements, EventNames } from '../../constants';
+import { HTMLElements, EventNames, NamesGoEvent } from '../../constants';
 import { Block, type BlockProps } from '../../core';
-import { changeFormField, blurFormField, submitForm } from '../../utils';
+import { withRouter } from '../../hocs';
+import {
+  changeFormField,
+  blurFormField,
+  submitForm,
+  getGoEvent,
+} from '../../utils';
 import { Avatar } from './components';
 import type { ProfilePageProps } from './profile.types';
 
@@ -16,6 +22,7 @@ export class ProfilePage extends Block<
       BackButton: new Button({
         ...props.backButton,
         className: 'button__icon_arrow-left',
+        onClick: getGoEvent(NamesGoEvent.goBack, props),
       }),
       Avatar: new Avatar({
         ...props.avatar,
@@ -38,6 +45,10 @@ export class ProfilePage extends Block<
                 changeFormField(evt, this.children.Form as Block, field),
             },
           },
+        })),
+        controls: props.controls.map((control) => ({
+          ...control,
+          onClick: getGoEvent(control.nameGoEvent, props),
         })),
       }),
       Modal: new Modal({
@@ -74,3 +85,9 @@ export class ProfilePage extends Block<
     `;
   }
 }
+
+const ProfilePageWithRouter = withRouter(ProfilePage) as unknown as new (
+  props: ProfilePageProps,
+) => Block & ProfilePage;
+
+export default ProfilePageWithRouter;

@@ -19,4 +19,5 @@ export interface BlockBase<
   setProps: (nextProps: P) => void;
   show: () => void;
   hide: () => void;
+  removeDOM: () => void;
 }

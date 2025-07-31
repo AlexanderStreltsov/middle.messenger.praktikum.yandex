@@ -1,6 +1,8 @@
 import { Form } from '../../components';
 import { HTMLElements, EventNames } from '../../constants';
 import { Block, type BlockProps } from '../../core';
+import { withRouter } from '../../hocs';
+import { getGoEvent } from '../../utils';
 import { changeFormField, blurFormField, submitForm } from '../../utils';
 import type { AuthPageProps } from './auth.types';
 
@@ -26,6 +28,10 @@ export class AuthPage extends Block<HTMLElement, AuthPageProps & BlockProps> {
             },
           },
         })),
+        controls: props.controls.map((control) => ({
+          ...control,
+          onClick: getGoEvent(control.nameGoEvent, props),
+        })),
       }),
     });
   }
@@ -41,3 +47,9 @@ export class AuthPage extends Block<HTMLElement, AuthPageProps & BlockProps> {
     `;
   }
 }
+
+const AuthPageWithRouter = withRouter(AuthPage) as unknown as new (
+  props: AuthPageProps,
+) => Block & AuthPage;
+
+export default AuthPageWithRouter;

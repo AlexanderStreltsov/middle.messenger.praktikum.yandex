@@ -1,6 +1,8 @@
 import { Button, InputField, Modal } from '../../components';
-import { HTMLElements, EventNames } from '../../constants';
+import { HTMLElements, EventNames, NamesGoEvent } from '../../constants';
 import { Block, type BlockProps } from '../../core';
+import { withRouter } from '../../hocs/with-router';
+import { getGoEvent } from '../../utils';
 import { ChatList, ChatMessages } from './components';
 import type { ChatPageProps } from './chat.types';
 
@@ -9,7 +11,10 @@ export class ChatPage extends Block<HTMLElement, ChatPageProps & BlockProps> {
     super(HTMLElements.MAIN, {
       ...props,
       className: 'content content_two-column',
-      ControlProfile: new Button(props.controlProfile),
+      ControlProfile: new Button({
+        ...props.controlProfile,
+        onClick: getGoEvent(NamesGoEvent.goProfile, props),
+      }),
       FieldSearch: new InputField({
         ...props.fieldSearch,
         inputProps: {
@@ -80,3 +85,9 @@ export class ChatPage extends Block<HTMLElement, ChatPageProps & BlockProps> {
     `;
   }
 }
+
+const ChatPageWithRouter = withRouter(ChatPage) as unknown as new (
+  props: ChatPageProps,
+) => Block & ChatPage;
+
+export default ChatPageWithRouter;

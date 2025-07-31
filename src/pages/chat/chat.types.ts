@@ -1,5 +1,10 @@
 import type { ButtonProps, InputFieldProps } from '../../components';
 import type { ChatItemProps } from './components';
+import type {
+  PagesDataUnionProps,
+  PagesDataTemplatesConstructor,
+} from '../../constants';
+import { Router } from '../../core';
 
 export interface ChatPageProps {
   controlProfile: ButtonProps;
@@ -12,4 +17,5 @@ export interface ChatPageProps {
   controlsAddUser: ButtonProps[];
   titleAddUser: string;
   textNoSelectChat: string;
+  router?: Router<PagesDataUnionProps, PagesDataTemplatesConstructor>;
 }

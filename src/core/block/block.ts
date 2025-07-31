@@ -234,18 +234,29 @@ export abstract class Block<
   };
 
   public show = () => {
-    const element = this.getContent();
-
-    if (element) {
-      element.style.display = 'block';
+    if (this._element) {
+      this._element.style.display = 'block';
     }
   };
 
   public hide = () => {
-    const element = this.getContent();
-
-    if (element) {
-      element.style.display = 'none';
+    if (this._element) {
+      this._element.style.display = 'none';
     }
+  };
+
+  public removeDOM = () => {
+    this._removeEvents();
+
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((component) => component.removeDOM());
+      } else {
+        child.removeDOM();
+      }
+    });
+
+    this._element?.remove();
+    this._element = null;
   };
 }
