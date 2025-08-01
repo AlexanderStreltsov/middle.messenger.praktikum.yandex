@@ -13,7 +13,7 @@ export class ChatPage extends Block<HTMLElement, ChatPageProps & BlockProps> {
       className: 'content content_two-column',
       ControlProfile: new Button({
         ...props.controlProfile,
-        onClick: getGoEvent(NamesGoEvent.goProfile, props),
+        onClick: getGoEvent(NamesGoEvent.goProfile, props.router),
       }),
       FieldSearch: new InputField({
         ...props.fieldSearch,

@@ -1,7 +1,7 @@
 import { HTMLElements, EventNames } from '../../../../constants';
 import { Block, type BlockProps } from '../../../../core';
 import { Form, Button } from '../../../../components';
-import { changeFormField, submitForm } from '../../../../utils';
+import { changeFormField, getFormData } from '../../../../utils';
 import type { ChatMessagesProps } from './chat-messages.types';
 
 export class ChatMessages extends Block<
@@ -14,7 +14,7 @@ export class ChatMessages extends Block<
       className: 'chat-main-section',
       Form: new Form({
         ...props,
-        onSubmit: (evt: Event) => submitForm(evt, this.children.Form as Block),
+        onSubmit: (evt: Event) => getFormData(evt, this.children.Form as Block),
         fields: props.fields.map((field) => ({
           ...field,
           inputProps: {

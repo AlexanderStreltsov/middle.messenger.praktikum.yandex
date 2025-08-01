@@ -1,10 +1,11 @@
-import {
-  type PagesDataUnionProps,
-  type PagesDataTemplatesConstructor,
-  RoutesNames,
-} from '../../constants';
+import { RoutesNames } from '../../constants';
+import type {
+  PagesDataUnionProps,
+  PagesDataTemplatesConstructor,
+} from '../../config';
 import { Route } from '../route';
 import { type RouterBase } from './router.types';
+import { checkAuth } from '../../services';
 
 export class Router<
   P extends PagesDataUnionProps = PagesDataUnionProps,
@@ -29,7 +30,26 @@ export class Router<
     Router.__instance = this;
   }
 
-  private _onRoute = (pathname: string) => {
+  private _onRoute = async (pathname: string) => {
+    const isAuth = await checkAuth();
+
+    if (
+      !isAuth &&
+      pathname !== RoutesNames.signin &&
+      pathname !== RoutesNames.signup
+    ) {
+      this.go(RoutesNames.signin);
+      return;
+    }
+
+    if (
+      isAuth &&
+      (pathname === RoutesNames.signin || pathname === RoutesNames.signup)
+    ) {
+      this.go(RoutesNames.profile);
+      return;
+    }
+
     const route = this.getRoute(pathname);
 
     if (!route) {

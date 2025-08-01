@@ -199,8 +199,8 @@ export abstract class Block<
 
   private _componentDidMount = () => this.componentDidMount();
 
-  private _componentDidUpdate = (props?: Record<string, P>) => {
-    const response = this.componentDidUpdate(props);
+  private _componentDidUpdate = (...args: Record<string, P>[]) => {
+    const response = this.componentDidUpdate(...args);
     if (!response) {
       return;
     }
@@ -214,7 +214,7 @@ export abstract class Block<
 
   protected componentDidMount = () => {};
 
-  protected componentDidUpdate = (props?: Record<string, P>) => props;
+  protected componentDidUpdate = (...args: Record<string, P>[]) => args;
 
   public getContent = () => this._element;
 

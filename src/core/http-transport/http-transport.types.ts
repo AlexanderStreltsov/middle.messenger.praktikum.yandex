@@ -7,19 +7,14 @@ export interface RequestOptions {
   timeout?: number;
 }
 
-export type RequestHttpMethod = (
+export type RequestHttpMethod = <T>(
   url: string,
   options?: RequestOptions,
-) => Promise<XMLHttpRequest>;
+) => Promise<T>;
 
 export interface HTTPTransportBase {
   get: RequestHttpMethod;
   post: RequestHttpMethod;
   put: RequestHttpMethod;
   delete: RequestHttpMethod;
-  request: (
-    url: string,
-    options?: RequestOptions,
-    timeout?: number,
-  ) => Promise<XMLHttpRequest>;
 }

@@ -2,7 +2,7 @@ import type {
   PagesDataUnionProps,
   PagesDataTemplatesConstructor,
   PagesDataTemplates,
-} from '../../constants';
+} from '../../config';
 import { renderDom } from '../../utils';
 import type { RouteBase } from './route.types';
 

@@ -1,4 +1,4 @@
-import type { PagesDataUnionProps } from '../constants';
+import type { PagesDataUnionProps } from '../config';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function withRouter(Component: new (props: PagesDataUnionProps) => any) {

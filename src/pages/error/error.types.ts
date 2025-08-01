@@ -3,7 +3,7 @@ import type { ButtonProps } from '../../components';
 import type {
   PagesDataUnionProps,
   PagesDataTemplatesConstructor,
-} from '../../constants';
+} from '../../config';
 
 export interface ErrorPageProps {
   title: string;

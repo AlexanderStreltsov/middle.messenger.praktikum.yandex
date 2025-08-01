@@ -1,1 +1,7 @@
-export { HTTPTransport } from './http-transport';
+export {
+  AuthApi,
+  type SignInData,
+  type ErrorApi,
+  type SignUpData,
+  type UserInfoResponse,
+} from './auth';

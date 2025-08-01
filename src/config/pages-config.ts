@@ -1,27 +1,14 @@
+import { ErrorPage, AuthPage, ProfilePage, ChatPage } from '../pages';
 import {
-  ErrorPage,
-  AuthPage,
-  ProfilePage,
-  ChatPage,
-  AuthPageClass,
-  ErrorPageClass,
-  ProfilePageClass,
-  ChatPageClass,
-  type AuthPageProps,
-  type ProfilePageProps,
-  type ErrorPageProps,
-  type ChatPageProps,
-} from '../../pages';
-import { PagesNames } from '../pages-names';
-import { ButtonTypes } from '../button-types';
-import { ButtonViewTypes } from '../button-view-types';
-import { Block } from '../../core';
-import { ProfilePageActionsGroupType } from '../profile-page-actions';
-import { RoutesNames } from '../routes-names';
+  PagesNames,
+  ButtonTypes,
+  ButtonViewTypes,
+  ProfilePageActionsGroupType,
+  RoutesNames,
+} from '../constants';
 import { FIELDS_AUTH } from './fields-auth';
 import { FIELDS_DEFAULT } from './fields-default';
 import { FIELDS_PROFILE } from './fields-profile';
-import { FIELDS_PROFILE_EDIT } from './fields-profile-edit';
 import { FIELDS_CHAT_ADD_USER } from './fields-chat-add-user';
 import { CONTROLS_PROFILE } from './controls-profile';
 import { CONTROLS_SIGNIN } from './controls-signin';
@@ -33,39 +20,9 @@ import { CONTROLS_CHAT_ADD_USER } from './controls-chat-add-user';
 import { PROFILE_PAGE_NAV, PROFILE_PAGE_COMMON } from './profile-page-common';
 import { CONTROLS_PROFILE_CHANGE_AVATAR } from './controls-profile-change-avatar';
 import { CHAT_MESSAGES } from './chat-messages';
+import type { PagesConfig } from './pages-config.types';
 
-export type PagesDataProps =
-  | ErrorPageProps
-  | AuthPageProps
-  | ProfilePageProps
-  | ChatPageProps;
-
-export type PagesDataUnionProps = AuthPageProps &
-  ErrorPageProps &
-  ProfilePageProps &
-  ChatPageProps;
-
-export type PagesDataTemplates =
-  | (AuthPageClass & Block)
-  | (ErrorPageClass & Block)
-  | (ProfilePageClass & Block)
-  | (ChatPageClass & Block);
-
-export type PagesDataTemplatesConstructor =
-  | typeof AuthPage
-  | typeof ErrorPage
-  | typeof ProfilePage
-  | typeof ChatPage;
-
-type PagesData = {
-  [key in PagesNames]: {
-    route: RoutesNames;
-    template: PagesDataTemplatesConstructor;
-    props: PagesDataProps;
-  };
-};
-
-export const PAGES_DATA: PagesData = {
+export const PAGES_CONFIG: PagesConfig = {
   [PagesNames.signin]: {
     route: RoutesNames.signin,
     template: AuthPage,
@@ -73,6 +30,7 @@ export const PAGES_DATA: PagesData = {
       title: 'Вход',
       fields: [FIELDS_AUTH.login, FIELDS_AUTH.pass],
       controls: [CONTROLS_SIGNIN.login, CONTROLS_SIGNIN.registration],
+      name: PagesNames.signin,
     },
   },
   [PagesNames.signup]: {
@@ -90,6 +48,7 @@ export const PAGES_DATA: PagesData = {
         FIELDS_AUTH.passConfirm,
       ],
       controls: [CONTROLS_SIGNUP.registration, CONTROLS_SIGNUP.login],
+      name: PagesNames.signup,
     },
   },
   [PagesNames.chat]: {
@@ -146,12 +105,12 @@ export const PAGES_DATA: PagesData = {
       ...PROFILE_PAGE_NAV,
       ...PROFILE_PAGE_COMMON,
       fields: [
-        FIELDS_PROFILE_EDIT.email,
-        FIELDS_PROFILE_EDIT.login,
-        FIELDS_PROFILE_EDIT.name,
-        FIELDS_PROFILE_EDIT.surname,
-        FIELDS_PROFILE_EDIT.displayName,
-        FIELDS_PROFILE_EDIT.phone,
+        FIELDS_DEFAULT.email,
+        FIELDS_DEFAULT.login,
+        FIELDS_DEFAULT.name,
+        FIELDS_DEFAULT.surname,
+        FIELDS_DEFAULT.displayName,
+        FIELDS_DEFAULT.phone,
       ],
     },
   },

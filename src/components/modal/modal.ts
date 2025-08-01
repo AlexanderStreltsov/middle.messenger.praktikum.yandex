@@ -4,7 +4,7 @@ import { Block, type BlockProps } from '../../core';
 import {
   changeFormField,
   blurFormField,
-  submitForm,
+  getFormData,
   updateFieldError,
 } from '../../utils';
 import type { ModalProps } from './modal.types';
@@ -18,7 +18,7 @@ export class Modal extends Block<HTMLDivElement, ModalProps & BlockProps> {
       events: { [EventNames.CLICK]: (evt: Event) => this.closeModal(evt) },
       Form: new Form({
         ...props,
-        onSubmit: (evt: Event) => submitForm(evt, this.children.Form as Block),
+        onSubmit: (evt: Event) => getFormData(evt, this.children.Form as Block),
         fields: props.fields.map((field) => ({
           ...field,
           classFields: props.classFields,

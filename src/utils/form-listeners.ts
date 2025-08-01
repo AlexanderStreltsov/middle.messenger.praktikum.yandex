@@ -29,13 +29,12 @@ export const blurFormField = (
     (evt.target as HTMLInputElement).value,
   );
 
-export const submitForm = (evt: Event, form: Block) => {
+export const getFormData = (evt: Event, form: Block) => {
   evt.preventDefault();
 
   const isError = updateFieldsErrors(form);
 
   if (!isError) {
-    // eslint-disable-next-line no-console
-    console.log(getFormState(form));
+    return getFormState(form);
   }
 };

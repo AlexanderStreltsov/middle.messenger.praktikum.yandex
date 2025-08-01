@@ -1,4 +1,4 @@
-import type { PagesDataTemplates } from '../constants';
+import type { PagesDataTemplates } from '../config';
 
 export const renderDom = (rootQuery: string, block: PagesDataTemplates) => {
   const root = document.querySelector(rootQuery);

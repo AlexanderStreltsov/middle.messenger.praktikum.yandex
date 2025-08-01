@@ -1,11 +1,14 @@
-import { RoutesNames, NamesGoEvent, type PagesDataProps } from '../constants';
+import { Router } from '../core';
+import type {
+  PagesDataUnionProps,
+  PagesDataTemplatesConstructor,
+} from '../config';
+import { RoutesNames, NamesGoEvent } from '../constants';
 
 export const getGoEvent = (
   name: NamesGoEvent = '' as NamesGoEvent,
-  props: PagesDataProps,
+  router?: Router<PagesDataUnionProps, PagesDataTemplatesConstructor>,
 ) => {
-  const { router } = props;
-
   switch (name) {
     case NamesGoEvent.goSignup:
       return () => router?.go(RoutesNames.signup);

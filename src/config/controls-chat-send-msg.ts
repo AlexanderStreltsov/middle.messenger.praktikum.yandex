@@ -1,6 +1,5 @@
-import { ButtonProps } from '../../components';
-import { ButtonTypes } from '../button-types';
-import { ButtonViewTypes } from '../button-view-types';
+import { ButtonProps } from '../components';
+import { ButtonTypes, ButtonViewTypes } from '../constants';
 
 export const CONTROLS_CHAT_SEND_MSG: Record<string, ButtonProps> = {
   send: {

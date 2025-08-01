@@ -1,7 +1,5 @@
-import { ButtonProps } from '../../components';
-import { NamesGoEvent } from '../names-go-event';
-import { ButtonTypes } from '../button-types';
-import { ButtonViewTypes } from '../button-view-types';
+import { ButtonProps } from '../components';
+import { NamesGoEvent, ButtonTypes, ButtonViewTypes } from '../constants';
 
 export const CONTROLS_SIGNUP: Record<string, ButtonProps> = {
   registration: {

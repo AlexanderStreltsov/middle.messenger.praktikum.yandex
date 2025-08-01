@@ -1,7 +1,10 @@
-import { ButtonProps } from '../../components';
-import { NamesGoEvent } from '../names-go-event';
-import { ButtonTypes } from '../button-types';
-import { ButtonViewTypes } from '../button-view-types';
+import { ButtonProps } from '../components';
+import {
+  NamesGoEvent,
+  ButtonTypes,
+  ButtonActionNames,
+  ButtonViewTypes,
+} from '../constants';
 
 export const CONTROLS_PROFILE: Record<string, ButtonProps> = {
   editData: {
@@ -27,5 +30,6 @@ export const CONTROLS_PROFILE: Record<string, ButtonProps> = {
     attrs: {
       type: ButtonTypes.BUTTON,
     },
+    actionName: ButtonActionNames.LOGOUT,
   },
 };

@@ -1,4 +1,4 @@
-import { Router } from './core';
+import { Router, Store } from './core';
 import type {
   PagesDataUnionProps,
   PagesDataTemplatesConstructor,
@@ -7,5 +7,6 @@ import type {
 declare global {
   interface Window {
     router: Router<PagesDataUnionProps, PagesDataTemplatesConstructor>;
+    store: Store;
   }
 }

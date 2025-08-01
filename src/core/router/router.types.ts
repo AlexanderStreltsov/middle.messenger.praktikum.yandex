@@ -1,7 +1,7 @@
 import type {
   PagesDataUnionProps,
   PagesDataTemplatesConstructor,
-} from '../../constants';
+} from '../../config';
 import { Route } from '../route';
 
 export interface RouterBase<

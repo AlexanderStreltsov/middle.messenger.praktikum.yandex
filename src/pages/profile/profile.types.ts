@@ -1,9 +1,10 @@
+import type { UserInfoResponse } from '../../api';
 import type { ButtonProps, InputFieldProps } from '../../components';
+import type { ProfilePageActionsGroupType } from '../../constants';
 import type {
-  ProfilePageActionsGroupType,
   PagesDataUnionProps,
   PagesDataTemplatesConstructor,
-} from '../../constants';
+} from '../../config';
 import { Router } from '../../core';
 import type { AvatarProps } from './components';
 
@@ -18,4 +19,6 @@ export interface ProfilePageProps {
   controlsChangeAvatar?: ButtonProps[];
   titleChangeAvatar?: string;
   router?: Router<PagesDataUnionProps, PagesDataTemplatesConstructor>;
+  user?: UserInfoResponse | null;
+  isLoading?: boolean;
 }

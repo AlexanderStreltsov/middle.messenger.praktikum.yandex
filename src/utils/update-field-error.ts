@@ -43,3 +43,11 @@ export const updateFieldsErrors = (form: Block) => {
 
   return isError;
 };
+
+export const setFormErrorWithoutValidate = (form: Block, error: string) => {
+  const fieldsComponents = getFieldsComponents(form);
+
+  fieldsComponents.forEach((fieldComponent) => {
+    setFieldError(fieldComponent, error);
+  });
+};

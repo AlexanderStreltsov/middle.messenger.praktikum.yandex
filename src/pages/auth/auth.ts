@@ -1,21 +1,40 @@
-import { Form } from '../../components';
-import { HTMLElements, EventNames } from '../../constants';
-import { Block, type BlockProps } from '../../core';
-import { withRouter } from '../../hocs';
+import type { SignInData, SignUpData } from '../../api';
+import { Form, Spinner } from '../../components';
+import { HTMLElements, EventNames, PagesNames } from '../../constants';
+import { Block, type BlockProps, type AppState } from '../../core';
+import { connectStore, withRouter } from '../../hocs';
+import * as Services from '../../services';
 import { getGoEvent } from '../../utils';
-import { changeFormField, blurFormField, submitForm } from '../../utils';
+import { changeFormField, blurFormField, getFormData } from '../../utils';
 import type { AuthPageProps } from './auth.types';
 
 export class AuthPage extends Block<HTMLElement, AuthPageProps & BlockProps> {
   constructor(props: AuthPageProps) {
     super(HTMLElements.MAIN, {
       ...props,
+      isLoading: props?.isLoading ?? false,
       className: 'content',
+      Spinner: new Spinner(),
       Form: new Form({
         ...props,
         classFields: 'auth-form__fields',
         classControls: 'auth-form__controls',
-        onSubmit: (evt: Event) => submitForm(evt, this.children.Form as Block),
+        onSubmit: (evt: Event) => {
+          const form = this.children.Form as Block;
+          const data = getFormData(evt, form);
+
+          if (!data) {
+            return;
+          }
+
+          if (props.name === PagesNames.signin) {
+            Services.signIn(data as SignInData, form);
+          }
+
+          if (props.name === PagesNames.signup) {
+            Services.signUp(data as SignUpData, form);
+          }
+        },
         fields: props.fields.map((field) => ({
           ...field,
           inputProps: {
@@ -30,7 +49,7 @@ export class AuthPage extends Block<HTMLElement, AuthPageProps & BlockProps> {
         })),
         controls: props.controls.map((control) => ({
           ...control,
-          onClick: getGoEvent(control.nameGoEvent, props),
+          onClick: getGoEvent(control.nameGoEvent, props.router),
         })),
       }),
     });
@@ -41,15 +60,23 @@ export class AuthPage extends Block<HTMLElement, AuthPageProps & BlockProps> {
       <section class="auth-form">
         <div class="auth-form__box">
           <h1>{{ title }}</h1>
-          {{{ Form }}}
+          {{#if isLoading}}
+            {{{ Spinner }}}
+          {{else}}
+            {{{ Form }}}
+          {{/if}}
         </div>
       </section>
     `;
   }
 }
 
-const AuthPageWithRouter = withRouter(AuthPage) as unknown as new (
-  props: AuthPageProps,
-) => Block & AuthPage;
+const mapStateToProps = (state: AppState) => ({
+  isLoading: state.isLoading,
+});
 
-export default AuthPageWithRouter;
+const AuthPageWithStore = connectStore(mapStateToProps)(
+  withRouter(AuthPage),
+) as unknown as new (props: AuthPageProps) => Block & AuthPage;
+
+export default AuthPageWithStore;

@@ -1,7 +1,9 @@
-import defaultAvatar from '../../assets/icons/default.svg';
-import { ButtonTypes } from '../button-types';
-import { ButtonViewTypes } from '../button-view-types';
-import { ProfilePageActionsGroupType } from '../profile-page-actions';
+import defaultAvatar from '../assets/icons/default.svg';
+import {
+  ButtonTypes,
+  ButtonViewTypes,
+  ProfilePageActionsGroupType,
+} from '../constants';
 
 export const PROFILE_PAGE_NAV = {
   backButton: {

@@ -3,7 +3,7 @@ import type { ChatItemProps } from './components';
 import type {
   PagesDataUnionProps,
   PagesDataTemplatesConstructor,
-} from '../../constants';
+} from '../../config';
 import { Router } from '../../core';
 
 export interface ChatPageProps {

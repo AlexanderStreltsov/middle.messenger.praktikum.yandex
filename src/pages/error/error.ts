@@ -12,7 +12,7 @@ export class ErrorPage extends Block<HTMLElement, ErrorPageProps & BlockProps> {
       className: 'content',
       Button: new Button({
         ...props.control,
-        onClick: getGoEvent(NamesGoEvent.goSignin, props),
+        onClick: getGoEvent(NamesGoEvent.goSignin, props.router),
       }),
     });
   }

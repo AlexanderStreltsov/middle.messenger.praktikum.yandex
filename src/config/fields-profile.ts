@@ -1,12 +1,12 @@
 import { FIELDS_DEFAULT } from './fields-default';
 
-export const FIELDS_PROFILE_EDIT = {
+export const FIELDS_PROFILE = {
   email: {
     ...FIELDS_DEFAULT.email,
     inputProps: {
       attrs: {
         ...FIELDS_DEFAULT.email.inputProps.attrs,
-        value: 'pochta@yandex.ru',
+        disabled: 'true',
       },
     },
   },
@@ -15,7 +15,7 @@ export const FIELDS_PROFILE_EDIT = {
     inputProps: {
       attrs: {
         ...FIELDS_DEFAULT.login.inputProps.attrs,
-        value: 'ivanivanov',
+        disabled: 'true',
       },
     },
   },
@@ -24,7 +24,7 @@ export const FIELDS_PROFILE_EDIT = {
     inputProps: {
       attrs: {
         ...FIELDS_DEFAULT.name.inputProps.attrs,
-        value: 'Иван',
+        disabled: 'true',
       },
     },
   },
@@ -33,7 +33,7 @@ export const FIELDS_PROFILE_EDIT = {
     inputProps: {
       attrs: {
         ...FIELDS_DEFAULT.surname.inputProps.attrs,
-        value: 'Иванов',
+        disabled: 'true',
       },
     },
   },
@@ -42,7 +42,7 @@ export const FIELDS_PROFILE_EDIT = {
     inputProps: {
       attrs: {
         ...FIELDS_DEFAULT.displayName.inputProps.attrs,
-        value: 'Иван',
+        disabled: 'true',
       },
     },
   },
@@ -51,7 +51,7 @@ export const FIELDS_PROFILE_EDIT = {
     inputProps: {
       attrs: {
         ...FIELDS_DEFAULT.phone.inputProps.attrs,
-        value: '+79999999990',
+        disabled: 'true',
       },
     },
   },

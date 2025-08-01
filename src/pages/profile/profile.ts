@@ -1,11 +1,18 @@
-import { Button, Form, Modal } from '../../components';
-import { HTMLElements, EventNames, NamesGoEvent } from '../../constants';
-import { Block, type BlockProps } from '../../core';
-import { withRouter } from '../../hocs';
+import { Button, Form, Modal, Spinner } from '../../components';
+import {
+  HTMLElements,
+  EventNames,
+  NamesGoEvent,
+  InputNames,
+  ButtonActionNames,
+} from '../../constants';
+import { Block, type BlockProps, type AppState } from '../../core';
+import { withRouter, connectStore } from '../../hocs';
+import * as AuthServices from '../../services';
 import {
   changeFormField,
   blurFormField,
-  submitForm,
+  getFormData,
   getGoEvent,
 } from '../../utils';
 import { Avatar } from './components';
@@ -18,11 +25,14 @@ export class ProfilePage extends Block<
   constructor(props: ProfilePageProps) {
     super(HTMLElements.MAIN, {
       ...props,
+      title: props.title ?? '',
+      isLoading: props?.isLoading ?? false,
       className: 'content content_two-column',
+      Spinner: new Spinner(),
       BackButton: new Button({
         ...props.backButton,
         className: 'button__icon_arrow-left',
-        onClick: getGoEvent(NamesGoEvent.goBack, props),
+        onClick: getGoEvent(NamesGoEvent.goBack, props.router),
       }),
       Avatar: new Avatar({
         ...props.avatar,
@@ -33,11 +43,15 @@ export class ProfilePage extends Block<
         isInputRow: true,
         classFields: 'profile-form__fields',
         classControls: `profile-form__controls profile-form__controls_${props.controlsViewType}`,
-        onSubmit: (evt: Event) => submitForm(evt, this.children.Form as Block),
+        onSubmit: (evt: Event) => getFormData(evt, this.children.Form as Block),
         fields: props.fields.map((field) => ({
           ...field,
           inputProps: {
-            attrs: { ...field.inputProps.attrs },
+            attrs: {
+              ...field.inputProps.attrs,
+              value:
+                (props.user?.[field.inputProps.attrs.name] as string) ?? '',
+            },
             events: {
               [EventNames.BLUR]: (evt: Event) =>
                 blurFormField(evt, this.children.Form as Block, field),
@@ -48,7 +62,18 @@ export class ProfilePage extends Block<
         })),
         controls: props.controls.map((control) => ({
           ...control,
-          onClick: getGoEvent(control.nameGoEvent, props),
+          onClick: () => {
+            const goEvent = getGoEvent(control.nameGoEvent, props.router);
+
+            if (goEvent) {
+              goEvent();
+              return;
+            }
+
+            if (control.actionName === ButtonActionNames.LOGOUT) {
+              AuthServices.logout();
+            }
+          },
         })),
       }),
       Modal: new Modal({
@@ -74,11 +99,15 @@ export class ProfilePage extends Block<
       </nav>
       <section class="profile-section">
         <div class="profile-section__wrapper">
-          <div class="profile-section__avatar">
-            {{{ Avatar }}}
-          </div>
-          ${this.props.title ? '<h1>{{ title }}</h1>' : ''}
-          {{{ Form }}}
+          {{#if isLoading}}
+            {{{ Spinner }}}
+          {{else}}
+            <div class="profile-section__avatar">
+              {{{ Avatar }}}
+            </div>
+            ${this.props.title ? '<h1>{{ title }}</h1>' : ''}
+            {{{ Form }}}
+          {{/if}}
         </div>
       </section>
       {{{ Modal }}}
@@ -86,8 +115,14 @@ export class ProfilePage extends Block<
   }
 }
 
-const ProfilePageWithRouter = withRouter(ProfilePage) as unknown as new (
-  props: ProfilePageProps,
-) => Block & ProfilePage;
+const mapStateToProps = (state: AppState) => ({
+  isLoading: state.isLoading,
+  user: state.user,
+  title: state.user?.[InputNames.FIRST_NAME],
+});
 
-export default ProfilePageWithRouter;
+const ProfilePageWithStore = connectStore(mapStateToProps)(
+  withRouter(ProfilePage),
+) as unknown as new (props: ProfilePageProps) => Block & ProfilePage;
+
+export default ProfilePageWithStore;
