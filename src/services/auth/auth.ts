@@ -1,23 +1,26 @@
-import { AuthApi } from '../../api';
-import type { SignInData, SignUpData, ErrorApi } from '../../api';
+import {
+  AuthApi,
+  type SignInData,
+  type SignUpData,
+  type ErrorApi,
+} from '../../api';
 import { RoutesNames } from '../../constants';
 import { Block } from '../../core';
-import { setFormErrorWithoutValidate } from '../../utils';
+import { setFieldsErrors } from '../../utils';
 
-const authApi = new AuthApi();
+export const authApi = new AuthApi();
 
 export const signUp = async (model: SignUpData, form: Block) => {
   const { store, router } = window;
   store.set({ isLoading: true });
-
   try {
     await authApi.signUp(model);
     const user = await authApi.getUserInfo();
     store.set({ user });
-    router.go(RoutesNames.profile);
+    router.go(RoutesNames.chat);
   } catch (error) {
     store.set({ user: null });
-    setFormErrorWithoutValidate(form, (error as ErrorApi).reason);
+    setFieldsErrors(form, (error as ErrorApi).reason);
   } finally {
     store.set({ isLoading: false });
   }
@@ -26,15 +29,14 @@ export const signUp = async (model: SignUpData, form: Block) => {
 export const signIn = async (model: SignInData, form: Block) => {
   const { store, router } = window;
   store.set({ isLoading: true });
-
   try {
     await authApi.signIn(model);
     const user = await authApi.getUserInfo();
     store.set({ user });
-    router.go(RoutesNames.profile);
+    router.go(RoutesNames.chat);
   } catch (error) {
     store.set({ user: null });
-    setFormErrorWithoutValidate(form, (error as ErrorApi).reason);
+    setFieldsErrors(form, (error as ErrorApi).reason);
   } finally {
     store.set({ isLoading: false });
   }
@@ -43,14 +45,11 @@ export const signIn = async (model: SignInData, form: Block) => {
 export const checkAuth = async () => {
   const { store } = window;
   store.set({ isLoading: true });
-
   try {
     const user = await authApi.getUserInfo();
-
     if (!user) {
       return false;
     }
-
     store.set({ user });
     return true;
   } catch {
@@ -63,7 +62,6 @@ export const checkAuth = async () => {
 export const logout = async () => {
   const { store, router } = window;
   store.set({ isLoading: true });
-
   try {
     store.set({ user: null });
     await authApi.logout();

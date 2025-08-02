@@ -56,7 +56,7 @@ export class HTTPTransport implements HTTPTransportBase {
       if (isGet || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data));
       }
     });
   };
@@ -82,7 +82,11 @@ export class HTTPTransport implements HTTPTransportBase {
   public put: RequestHttpMethod = (url, options = {}) =>
     this.request(
       `${this.apiUrl}${url}`,
-      { ...options, method: FETCH_METHODS.PUT },
+      {
+        ...options,
+        headers: options.headers || { 'Content-Type': 'application/json' },
+        method: FETCH_METHODS.PUT,
+      },
       options.timeout,
     );
 

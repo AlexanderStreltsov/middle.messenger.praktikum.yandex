@@ -7,13 +7,7 @@ window.router = new Router(APP_ROOT_ELEMENT);
 window.store = new Store(defaultState);
 
 const { router, store } = window;
-
-store.on(StoreEvents.UPDATED, (prevState, nextState) => {
-  console.log('Store updated:', {
-    prevState,
-    nextState,
-  });
-});
+store.on(StoreEvents.UPDATED, () => {});
 
 for (const key in PAGES_CONFIG) {
   const { route, template, props } = PAGES_CONFIG[key as PagesNames];

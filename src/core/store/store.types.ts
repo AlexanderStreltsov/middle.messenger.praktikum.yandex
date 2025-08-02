@@ -1,8 +1,8 @@
-import type { UserInfoResponse } from '../../api';
+import type { UserInfoResponse, EditProfileResponse } from '../../api';
 
 export interface AppState {
   isLoading: boolean;
-  user: UserInfoResponse | null;
+  user: UserInfoResponse | EditProfileResponse | null;
 }
 
 export interface StoreBase {

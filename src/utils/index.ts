@@ -1,7 +1,12 @@
-export { changeFormField, blurFormField, getFormData } from './form-listeners';
-export { getGoEvent } from './get-go-event';
 export {
+  changeFormField,
+  blurFormField,
   updateFieldError,
-  setFormErrorWithoutValidate,
-} from './update-field-error';
+  setFieldsErrors,
+  getFormStateValidated,
+  type FormState,
+} from './form.utils';
+
+export { getGoEvent } from './get-go-event';
 export { renderDom } from './render-dom';
+export { isEqual } from './is-equal';

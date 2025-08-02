@@ -1,6 +1,6 @@
-import { Block } from '../core';
-import type { InputProps } from '../components';
-import { InputNames } from '../constants';
+import { Block } from '../../core';
+import type { InputProps } from '../../components';
+import { InputNames } from '../../constants';
 
 export const getFieldsComponents = (form: Block) =>
   form.getChildren().fieldsComponents as Block[];

@@ -1,5 +1,5 @@
-import { ButtonProps } from '../components';
-import { NamesGoEvent, ButtonTypes, ButtonViewTypes } from '../constants';
+import { ButtonProps } from '../../components';
+import { NamesGoEvent, ButtonTypes, ButtonViewTypes } from '../../constants';
 
 export const CONTROLS_SIGNIN: Record<string, ButtonProps> = {
   login: {

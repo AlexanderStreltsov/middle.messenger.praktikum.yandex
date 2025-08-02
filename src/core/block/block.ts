@@ -233,24 +233,15 @@ export abstract class Block<
     Object.assign(this.props, nextProps);
   };
 
-  public show = () => {
-    if (this._element) {
-      this._element.style.display = 'block';
-    }
-  };
-
-  public hide = () => {
-    if (this._element) {
-      this._element.style.display = 'none';
-    }
-  };
-
   public removeDOM = () => {
     this._removeEvents();
+    this.componentWillUnmount();
 
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
-        child.forEach((component) => component.removeDOM());
+        child.forEach((component) => {
+          component.removeDOM();
+        });
       } else {
         child.removeDOM();
       }
@@ -259,4 +250,6 @@ export abstract class Block<
     this._element?.remove();
     this._element = null;
   };
+
+  public componentWillUnmount = () => {};
 }

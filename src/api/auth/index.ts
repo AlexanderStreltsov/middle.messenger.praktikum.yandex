@@ -1,7 +1,7 @@
 export { AuthApi } from './auth';
 export type {
+  ErrorApi,
   SignInData,
   SignUpData,
-  ErrorApi,
   UserInfoResponse,
 } from './auth.types';

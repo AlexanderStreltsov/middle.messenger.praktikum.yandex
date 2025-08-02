@@ -1,10 +1,10 @@
-import { ButtonProps } from '../components';
+import { ButtonProps } from '../../components';
 import {
   NamesGoEvent,
   ButtonTypes,
   ButtonActionNames,
   ButtonViewTypes,
-} from '../constants';
+} from '../../constants';
 
 export const CONTROLS_PROFILE: Record<string, ButtonProps> = {
   editData: {

@@ -1,6 +1,6 @@
 import type { UserInfoResponse } from '../../api';
 import type { ButtonProps, InputFieldProps } from '../../components';
-import type { ProfilePageActionsGroupType } from '../../constants';
+import type { PagesNames, ProfilePageActionsGroupType } from '../../constants';
 import type {
   PagesDataUnionProps,
   PagesDataTemplatesConstructor,
@@ -21,4 +21,5 @@ export interface ProfilePageProps {
   router?: Router<PagesDataUnionProps, PagesDataTemplatesConstructor>;
   user?: UserInfoResponse | null;
   isLoading?: boolean;
+  name: PagesNames;
 }

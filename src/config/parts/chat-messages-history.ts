@@ -1,5 +1,5 @@
-import type { MessageProps } from '../pages';
-import { ChatMessageTypes } from '../constants';
+import type { MessageProps } from '../../pages';
+import { ChatMessageTypes } from '../../constants';
 
 export const CHAT_MESSAGES_HISTORY_1: MessageProps[] = [
   {

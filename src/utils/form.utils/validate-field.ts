@@ -1,4 +1,4 @@
-import { VALIDATOR, InputNames } from '../constants';
+import { VALIDATOR, InputNames } from '../../constants';
 
 export const validateField = (name: InputNames, value: string) => {
   if (!VALIDATOR[name]) {

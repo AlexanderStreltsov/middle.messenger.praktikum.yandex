@@ -1,2 +1,1 @@
-export { signIn, signUp, logout, checkAuth } from './auth';
 export { editProfile, editPassword, editAvatar } from './user';

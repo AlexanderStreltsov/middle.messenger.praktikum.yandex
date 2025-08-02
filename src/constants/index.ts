@@ -1,4 +1,9 @@
-export { API_URL, AuthApiPaths } from './api-urls';
+export {
+  API_URL,
+  API_RESOURCES_URL,
+  AuthApiPaths,
+  UserApiPaths,
+} from './api-urls';
 export { APP_ROOT_ELEMENT } from './app-root-element';
 export { ButtonTypes } from './button-types';
 export { ButtonViewTypes } from './button-view-types';

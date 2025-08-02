@@ -1,4 +1,5 @@
 import type { ButtonProps, InputFieldProps } from '../../components';
+import type { FormState } from '../../utils';
 
 export interface ModalProps {
   isOpen?: boolean;
@@ -7,4 +8,6 @@ export interface ModalProps {
   title: string;
   classFields?: string;
   isBlur?: boolean;
+  onSubmit?: (data: FormState) => void;
+  isLoading?: boolean;
 }

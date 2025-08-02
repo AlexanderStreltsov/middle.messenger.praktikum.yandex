@@ -17,7 +17,6 @@ export interface BlockBase<
   getProps: () => P;
   dispatchComponentDidMount: () => void;
   setProps: (nextProps: P) => void;
-  show: () => void;
-  hide: () => void;
   removeDOM: () => void;
+  componentWillUnmount: () => void;
 }

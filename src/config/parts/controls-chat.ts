@@ -1,5 +1,5 @@
-import { ButtonProps } from '../components';
-import { ButtonTypes, ButtonViewTypes } from '../constants';
+import { ButtonProps } from '../../components';
+import { ButtonTypes, ButtonViewTypes } from '../../constants';
 
 export const CONTROL_CHAT_TO_PROFILE: Record<string, ButtonProps> = {
   profile: {

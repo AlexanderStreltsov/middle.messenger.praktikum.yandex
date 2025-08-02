@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 
-import defaultAvatar from '../assets/icons/default.svg';
-import type { ChatItemProps } from '../pages';
+import defaultAvatar from '../../assets/icons/default.svg';
+import type { ChatItemProps } from '../../pages';
 import {
   CHAT_MESSAGES_HISTORY_1,
   CHAT_MESSAGES_HISTORY_2,

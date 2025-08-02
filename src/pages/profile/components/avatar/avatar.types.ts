@@ -4,4 +4,5 @@ export interface AvatarProps {
   textCover?: string;
   isChange: boolean;
   onClick?: (evt: Event) => void;
+  avatarClass?: string;
 }

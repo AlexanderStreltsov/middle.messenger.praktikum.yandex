@@ -1,10 +1,11 @@
 import { HTMLElements, EventNames } from '../../constants';
-import { Form, type InputFieldProps } from '../../components';
-import { Block, type BlockProps } from '../../core';
+import { Form, type InputFieldProps, Spinner } from '../../components';
+import { Block, type BlockProps, type AppState } from '../../core';
+import { connectStore } from '../../hocs';
 import {
   changeFormField,
   blurFormField,
-  getFormData,
+  getFormStateValidated,
   updateFieldError,
 } from '../../utils';
 import type { ModalProps } from './modal.types';
@@ -15,10 +16,19 @@ export class Modal extends Block<HTMLDivElement, ModalProps & BlockProps> {
       ...props,
       className: 'modal-wrapper',
       isOpen,
+      isLoading: props?.isLoading ?? false,
       events: { [EventNames.CLICK]: (evt: Event) => this.closeModal(evt) },
+      Spinner: new Spinner(),
       Form: new Form({
         ...props,
-        onSubmit: (evt: Event) => getFormData(evt, this.children.Form as Block),
+        onSubmit: (evt: Event) => {
+          evt.preventDefault();
+          const data = getFormStateValidated(this.children.Form as Block);
+          if (!data) {
+            return;
+          }
+          props.onSubmit?.(data);
+        },
         fields: props.fields.map((field) => ({
           ...field,
           classFields: props.classFields,
@@ -55,6 +65,13 @@ export class Modal extends Block<HTMLDivElement, ModalProps & BlockProps> {
     );
 
     if (isOverlayClick) {
+      const form = (evt.currentTarget as HTMLElement).querySelector('form');
+      const input = form?.querySelector('input');
+
+      if (input) {
+        input.value = '';
+      }
+
       this.setProps({ ...this.props, isOpen: false });
     }
   };
@@ -63,9 +80,23 @@ export class Modal extends Block<HTMLDivElement, ModalProps & BlockProps> {
     return `
       <dialog class="modal">
         <h2>{{ title }}</h2>
-        {{{ Form }}}
+        {{#if isLoading}}
+          {{{ Spinner }}}
+        {{else}}
+          {{{ Form }}}
+        {{/if}}
       </dialog>
       <div class="modal__overlay ${this.props.isOpen ? 'modal-open' : ''}"></div>
     `;
   }
 }
+
+const mapStateToProps = ({ isLoading }: AppState) => ({
+  isLoading,
+});
+
+const ModalWithStore = connectStore(mapStateToProps)(Modal) as unknown as new (
+  props: ModalProps,
+) => Block & Modal;
+
+export default ModalWithStore;

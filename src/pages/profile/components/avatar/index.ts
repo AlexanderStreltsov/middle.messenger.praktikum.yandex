@@ -1,3 +1,4 @@
 import './avatar.css';
-export { Avatar } from './avatar';
+import Avatar from './avatar';
+export { Avatar };
 export type { AvatarProps } from './avatar.types';

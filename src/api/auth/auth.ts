@@ -12,20 +12,18 @@ const authApi = new HTTPTransport(AuthApiPaths.Auth);
 
 export class AuthApi implements AuthApiBase {
   async signUp(data: SignUpData) {
-    return authApi.post<SignUpResponse>(AuthApiPaths.SignUp, {
-      data,
-    });
+    return authApi.post<SignUpResponse>(AuthApiPaths.SignUp, { data });
   }
 
   async signIn(data: SignInData) {
-    return authApi.post<XMLHttpRequest>(AuthApiPaths.SignIn, { data });
+    return authApi.post(AuthApiPaths.SignIn, { data });
   }
 
   async getUserInfo() {
-    return authApi.get<UserInfoResponse>(AuthApiPaths.UserInfo);
+    return authApi.get<UserInfoResponse>(AuthApiPaths.User);
   }
 
   async logout() {
-    return authApi.post<XMLHttpRequest>(AuthApiPaths.Logout);
+    return authApi.post(AuthApiPaths.Logout);
   }
 }

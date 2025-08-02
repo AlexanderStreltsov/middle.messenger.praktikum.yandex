@@ -1,1 +1,1 @@
-export { signIn, signUp, logout, checkAuth } from './auth';
+export { authApi, signIn, signUp, logout, checkAuth } from './auth';

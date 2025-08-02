@@ -6,20 +6,23 @@ import {
   ProfilePageActionsGroupType,
   RoutesNames,
 } from '../constants';
-import { FIELDS_AUTH } from './fields-auth';
-import { FIELDS_DEFAULT } from './fields-default';
-import { FIELDS_PROFILE } from './fields-profile';
-import { FIELDS_CHAT_ADD_USER } from './fields-chat-add-user';
-import { CONTROLS_PROFILE } from './controls-profile';
-import { CONTROLS_SIGNIN } from './controls-signin';
-import { CONTROLS_SIGNUP } from './controls-signup';
-import { CONTROL_CHAT_TO_PROFILE } from './controls-chat';
-import { CONTROLS_CHAT_SEND_MSG } from './controls-chat-send-msg';
-import { CONTROLS_CHAT_USER_ACTION } from './controls-chat-user-action';
-import { CONTROLS_CHAT_ADD_USER } from './controls-chat-add-user';
-import { PROFILE_PAGE_NAV, PROFILE_PAGE_COMMON } from './profile-page-common';
-import { CONTROLS_PROFILE_CHANGE_AVATAR } from './controls-profile-change-avatar';
-import { CHAT_MESSAGES } from './chat-messages';
+import {
+  FIELDS_AUTH,
+  FIELDS_DEFAULT,
+  FIELDS_PROFILE,
+  FIELDS_CHAT_ADD_USER,
+  CONTROLS_PROFILE,
+  CONTROLS_SIGNIN,
+  CONTROLS_SIGNUP,
+  CONTROL_CHAT_TO_PROFILE,
+  CONTROLS_CHAT_SEND_MSG,
+  CONTROLS_CHAT_USER_ACTION,
+  CONTROLS_CHAT_ADD_USER,
+  PROFILE_PAGE_NAV,
+  PROFILE_PAGE_COMMON,
+  CONTROLS_PROFILE_CHANGE_AVATAR,
+  CHAT_MESSAGES,
+} from './parts';
 import type { PagesConfig } from './pages-config.types';
 
 export const PAGES_CONFIG: PagesConfig = {
@@ -96,6 +99,7 @@ export const PAGES_CONFIG: PagesConfig = {
       fieldsChangeAvatar: [FIELDS_DEFAULT.avatar],
       controlsChangeAvatar: [CONTROLS_PROFILE_CHANGE_AVATAR.change],
       titleChangeAvatar: 'Загрузите файл',
+      name: PagesNames.profile,
     },
   },
   [PagesNames['profile-edit']]: {
@@ -112,6 +116,7 @@ export const PAGES_CONFIG: PagesConfig = {
         FIELDS_DEFAULT.displayName,
         FIELDS_DEFAULT.phone,
       ],
+      name: PagesNames['profile-edit'],
     },
   },
   [PagesNames['profile-pass-edit']]: {
@@ -133,6 +138,7 @@ export const PAGES_CONFIG: PagesConfig = {
         FIELDS_DEFAULT.newPass,
         FIELDS_DEFAULT.newPassConfirm,
       ],
+      name: PagesNames['profile-pass-edit'],
     },
   },
   [PagesNames.error404]: {

@@ -1,3 +1,4 @@
 import './modal.css';
-export { Modal } from './modal';
+import Modal from './modal';
+export { Modal };
 export type { ModalProps } from './modal.types';

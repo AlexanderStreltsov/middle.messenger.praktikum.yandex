@@ -4,7 +4,7 @@ export enum InputNames {
   FIRST_NAME = 'first_name',
   LOGIN = 'login',
   PASS = 'password',
-  PASS_CONFIRM = 'password_confirm',
+  PASS_CONFIRM = 'confirmPassword',
   PHONE = 'phone',
   SECOND_NAME = 'second_name',
   OLD_PASSWORD = 'oldPassword',

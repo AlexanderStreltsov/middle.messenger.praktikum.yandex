@@ -46,7 +46,7 @@ export class Router<
       isAuth &&
       (pathname === RoutesNames.signin || pathname === RoutesNames.signup)
     ) {
-      this.go(RoutesNames.profile);
+      this.go(RoutesNames.chat);
       return;
     }
 

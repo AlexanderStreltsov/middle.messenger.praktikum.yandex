@@ -1,19 +1,29 @@
-import { Button, Form, Modal, Spinner } from '../../components';
+import type { EditProfileData, EditPasswordData } from '../../api';
+import {
+  Button,
+  Form,
+  Modal,
+  Spinner,
+  type ButtonProps,
+} from '../../components';
 import {
   HTMLElements,
   EventNames,
   NamesGoEvent,
   InputNames,
   ButtonActionNames,
+  PagesNames,
 } from '../../constants';
 import { Block, type BlockProps, type AppState } from '../../core';
 import { withRouter, connectStore } from '../../hocs';
-import * as AuthServices from '../../services';
+import * as AuthServices from '../../services/auth';
+import * as UserServices from '../../services/user';
 import {
   changeFormField,
   blurFormField,
-  getFormData,
   getGoEvent,
+  getFormStateValidated,
+  type FormState,
 } from '../../utils';
 import { Avatar } from './components';
 import type { ProfilePageProps } from './profile.types';
@@ -36,14 +46,14 @@ export class ProfilePage extends Block<
       }),
       Avatar: new Avatar({
         ...props.avatar,
-        onClick: () => this.changeAvatarClick(),
+        onClick: () => this.switchModalOpen(),
       }),
       Form: new Form({
         ...props,
         isInputRow: true,
         classFields: 'profile-form__fields',
         classControls: `profile-form__controls profile-form__controls_${props.controlsViewType}`,
-        onSubmit: (evt: Event) => getFormData(evt, this.children.Form as Block),
+        onSubmit: (evt: Event) => this.submit(evt, props.name),
         fields: props.fields.map((field) => ({
           ...field,
           inputProps: {
@@ -62,18 +72,7 @@ export class ProfilePage extends Block<
         })),
         controls: props.controls.map((control) => ({
           ...control,
-          onClick: () => {
-            const goEvent = getGoEvent(control.nameGoEvent, props.router);
-
-            if (goEvent) {
-              goEvent();
-              return;
-            }
-
-            if (control.actionName === ButtonActionNames.LOGOUT) {
-              AuthServices.logout();
-            }
-          },
+          onClick: () => this.formControlClick(control),
         })),
       }),
       Modal: new Modal({
@@ -81,18 +80,55 @@ export class ProfilePage extends Block<
         controls: props.controlsChangeAvatar ?? [],
         title: props.titleChangeAvatar ?? '',
         classFields: 'profile-section__modal-form-fields',
+        onSubmit: (data) => this.submitChangeAvatar(data),
       }),
     });
   }
 
-  private changeAvatarClick = () => {
+  private switchModalOpen = (isOpenAction: boolean = true) => {
     if (this.props.avatar.isChange) {
       const modal = this.children.Modal as Block;
-      modal.setProps({ isOpen: true });
+      modal.setProps({ isOpen: isOpenAction });
     }
   };
 
+  private formControlClick = ({ nameGoEvent, actionName }: ButtonProps) => {
+    if (actionName === ButtonActionNames.LOGOUT) {
+      AuthServices.logout();
+      return;
+    }
+
+    getGoEvent(nameGoEvent, this.props.router)?.();
+  };
+
+  private submit = (evt: Event, name: PagesNames) => {
+    evt.preventDefault();
+
+    const form = this.children.Form as Block;
+    const data = getFormStateValidated(form);
+
+    if (!data) {
+      return;
+    }
+
+    if (name === PagesNames['profile-edit']) {
+      UserServices.editProfile(data as EditProfileData, form);
+    }
+
+    if (name === PagesNames['profile-pass-edit']) {
+      UserServices.editPassword(data as EditPasswordData, form);
+    }
+  };
+
+  private submitChangeAvatar = ({ avatar }: FormState) => {
+    const modal = this.children.Modal as Block;
+    const form = modal.getChildren().Form as Block;
+    UserServices.editAvatar(avatar as FormData, form, this.switchModalOpen);
+  };
+
   render() {
+    const { name, title } = this.props;
+
     return `
       <nav class="profile-nav">
         {{{ BackButton }}}
@@ -102,10 +138,20 @@ export class ProfilePage extends Block<
           {{#if isLoading}}
             {{{ Spinner }}}
           {{else}}
-            <div class="profile-section__avatar">
-              {{{ Avatar }}}
-            </div>
-            ${this.props.title ? '<h1>{{ title }}</h1>' : ''}
+            ${
+              name === PagesNames['profile']
+                ? `
+                    <div class="profile-section__avatar">
+                      {{{ Avatar }}}
+                    </div>
+                  `
+                : ''
+            }
+            ${
+              name && title === PagesNames['profile']
+                ? '<h1>{{ title }}</h1>'
+                : ''
+            }
             {{{ Form }}}
           {{/if}}
         </div>
@@ -115,10 +161,10 @@ export class ProfilePage extends Block<
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
-  isLoading: state.isLoading,
-  user: state.user,
-  title: state.user?.[InputNames.FIRST_NAME],
+const mapStateToProps = ({ isLoading, user }: AppState) => ({
+  isLoading: isLoading,
+  user: user,
+  title: user?.[InputNames.FIRST_NAME],
 });
 
 const ProfilePageWithStore = connectStore(mapStateToProps)(

@@ -1,9 +1,8 @@
-import defaultAvatar from '../assets/icons/default.svg';
 import {
   ButtonTypes,
   ButtonViewTypes,
   ProfilePageActionsGroupType,
-} from '../constants';
+} from '../../constants';
 
 export const PROFILE_PAGE_NAV = {
   backButton: {
@@ -16,7 +15,7 @@ export const PROFILE_PAGE_NAV = {
 };
 
 export const PROFILE_PAGE_COMMON = {
-  avatar: { src: defaultAvatar, alt: '', isChange: false },
+  avatar: { src: '', alt: '', isChange: false },
   controlsViewType: ProfilePageActionsGroupType.ELEMENT,
   controls: [
     {

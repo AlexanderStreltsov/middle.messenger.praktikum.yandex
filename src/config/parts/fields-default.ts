@@ -1,5 +1,5 @@
-import type { InputFieldProps } from '../components';
-import { InputNames, InputTypes } from '../constants';
+import type { InputFieldProps } from '../../components';
+import { InputNames, InputTypes } from '../../constants';
 
 export const FIELDS_DEFAULT: Record<string, InputFieldProps> = {
   login: {

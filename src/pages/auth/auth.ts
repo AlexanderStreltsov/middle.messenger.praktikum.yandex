@@ -3,9 +3,13 @@ import { Form, Spinner } from '../../components';
 import { HTMLElements, EventNames, PagesNames } from '../../constants';
 import { Block, type BlockProps, type AppState } from '../../core';
 import { connectStore, withRouter } from '../../hocs';
-import * as Services from '../../services';
+import * as AuthServices from '../../services/auth';
 import { getGoEvent } from '../../utils';
-import { changeFormField, blurFormField, getFormData } from '../../utils';
+import {
+  changeFormField,
+  blurFormField,
+  getFormStateValidated,
+} from '../../utils';
 import type { AuthPageProps } from './auth.types';
 
 export class AuthPage extends Block<HTMLElement, AuthPageProps & BlockProps> {
@@ -19,22 +23,7 @@ export class AuthPage extends Block<HTMLElement, AuthPageProps & BlockProps> {
         ...props,
         classFields: 'auth-form__fields',
         classControls: 'auth-form__controls',
-        onSubmit: (evt: Event) => {
-          const form = this.children.Form as Block;
-          const data = getFormData(evt, form);
-
-          if (!data) {
-            return;
-          }
-
-          if (props.name === PagesNames.signin) {
-            Services.signIn(data as SignInData, form);
-          }
-
-          if (props.name === PagesNames.signup) {
-            Services.signUp(data as SignUpData, form);
-          }
-        },
+        onSubmit: (evt: Event) => this.submit(evt, props.name),
         fields: props.fields.map((field) => ({
           ...field,
           inputProps: {
@@ -55,6 +44,25 @@ export class AuthPage extends Block<HTMLElement, AuthPageProps & BlockProps> {
     });
   }
 
+  private submit = (evt: Event, name: PagesNames) => {
+    evt.preventDefault();
+
+    const form = this.children.Form as Block;
+    const data = getFormStateValidated(form);
+
+    if (!data) {
+      return;
+    }
+
+    if (name === PagesNames.signin) {
+      AuthServices.signIn(data as SignInData, form);
+    }
+
+    if (name === PagesNames.signup) {
+      AuthServices.signUp(data as SignUpData, form);
+    }
+  };
+
   render() {
     return `
       <section class="auth-form">
@@ -71,8 +79,8 @@ export class AuthPage extends Block<HTMLElement, AuthPageProps & BlockProps> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
-  isLoading: state.isLoading,
+const mapStateToProps = ({ isLoading }: AppState) => ({
+  isLoading,
 });
 
 const AuthPageWithStore = connectStore(mapStateToProps)(
