@@ -1,7 +1,7 @@
 export { UserApi } from './user';
 export type {
+  User,
   EditProfileData,
-  EditProfileResponse,
   EditPasswordData,
-  EditAvatarResponse,
+  SearchData,
 } from './user.types';

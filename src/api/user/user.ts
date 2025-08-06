@@ -3,16 +3,16 @@ import { UserApiPaths } from '../../constants';
 import type {
   UserApiBase,
   EditProfileData,
-  EditProfileResponse,
   EditPasswordData,
-  EditAvatarResponse,
+  SearchData,
+  User,
 } from './user.types';
 
 const userApi = new HTTPTransport(UserApiPaths.User);
 
 export class UserApi implements UserApiBase {
   async editProfile(data: EditProfileData) {
-    return userApi.put<EditProfileResponse>(UserApiPaths.Profile, { data });
+    return userApi.put<User>(UserApiPaths.Profile, { data });
   }
 
   async editPassword(data: EditPasswordData) {
@@ -20,9 +20,15 @@ export class UserApi implements UserApiBase {
   }
 
   async editAvatar(data: FormData) {
-    return userApi.put<EditAvatarResponse>(
-      `${UserApiPaths.Profile}${UserApiPaths.Avatar}`,
-      { data, headers: {} },
-    );
+    return userApi.put<User>(`${UserApiPaths.Profile}${UserApiPaths.Avatar}`, {
+      data,
+      headers: {},
+    });
+  }
+
+  async search(data: SearchData) {
+    return userApi.post<User[]>(UserApiPaths.Search, {
+      data,
+    });
   }
 }

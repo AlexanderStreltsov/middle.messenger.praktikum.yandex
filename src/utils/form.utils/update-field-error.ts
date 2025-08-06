@@ -1,6 +1,10 @@
 import { Block } from '../../core';
 import type { InputProps } from '../../components';
-import { InputNames } from '../../constants';
+import {
+  InputNames,
+  ERROR_CONFIRM_PASSWORD,
+  ERROR_NEW_PASSWORD,
+} from '../../constants';
 import { getFieldComponent, getFieldsComponents } from './get-field-component';
 import { validateField } from './validate-field';
 import { getFormState } from './get-form-state';
@@ -24,18 +28,52 @@ export const updateFieldError = (
 };
 
 const updatePassConfirmError = (form: Block) => {
-  const { confirmPassword, newPassword } = getFormState(form);
+  const { confirmPassword, newPassword, oldPassword, password } =
+    getFormState(form);
+
   const newPassField = getFieldComponent(form, InputNames.NEW_PASSWORD);
   const confirmPassField = getFieldComponent(form, InputNames.PASS_CONFIRM);
+  const oldPassField = getFieldComponent(form, InputNames.OLD_PASSWORD);
+  const passField = getFieldComponent(form, InputNames.PASS);
 
-  if (newPassField && confirmPassField) {
-    const error = newPassword === confirmPassword ? '' : 'Пароли не совпадают';
+  if (
+    passField &&
+    confirmPassField &&
+    password &&
+    confirmPassword &&
+    password !== confirmPassword
+  ) {
+    setFieldError(passField, ERROR_CONFIRM_PASSWORD);
+    setFieldError(confirmPassField, ERROR_CONFIRM_PASSWORD);
+    return true;
+  }
 
-    if (error) {
-      setFieldError(newPassField, error);
-      setFieldError(confirmPassField, error);
-      return true;
-    }
+  if (
+    newPassField &&
+    confirmPassField &&
+    newPassword &&
+    confirmPassword &&
+    newPassword !== confirmPassword
+  ) {
+    setFieldError(newPassField, ERROR_CONFIRM_PASSWORD);
+    setFieldError(confirmPassField, ERROR_CONFIRM_PASSWORD);
+    return true;
+  }
+
+  if (
+    newPassField &&
+    oldPassField &&
+    newPassword &&
+    oldPassword &&
+    newPassword === oldPassword
+  ) {
+    setFieldError(newPassField, ERROR_NEW_PASSWORD);
+    setFieldError(oldPassField, ERROR_NEW_PASSWORD);
+    return true;
+  }
+
+  if (oldPassField) {
+    setFieldError(oldPassField, '');
   }
 
   return false;

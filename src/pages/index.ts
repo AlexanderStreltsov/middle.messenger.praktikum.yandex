@@ -8,9 +8,8 @@ export {
 } from './profile';
 
 export {
-  ChatPage,
-  ChatPageClass,
-  type ChatPageProps,
-  type ChatItemProps,
+  ChatsPage,
+  ChatsPageClass,
+  type ChatsPageProps,
   type MessageProps,
-} from './chat';
+} from './chats';

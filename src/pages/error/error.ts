@@ -28,8 +28,4 @@ export class ErrorPage extends Block<HTMLElement, ErrorPageProps & BlockProps> {
   }
 }
 
-const ErrorPageWithRouter = withRouter(ErrorPage) as unknown as new (
-  props: ErrorPageProps,
-) => Block & ErrorPage;
-
-export default ErrorPageWithRouter;
+export default withRouter(ErrorPage);

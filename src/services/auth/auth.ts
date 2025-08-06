@@ -6,7 +6,7 @@ import {
 } from '../../api';
 import { RoutesNames } from '../../constants';
 import { Block } from '../../core';
-import { setFieldsErrors } from '../../utils';
+import { setFieldsErrors, getTextServerError } from '../../utils';
 
 export const authApi = new AuthApi();
 
@@ -15,12 +15,10 @@ export const signUp = async (model: SignUpData, form: Block) => {
   store.set({ isLoading: true });
   try {
     await authApi.signUp(model);
-    const user = await authApi.getUserInfo();
-    store.set({ user });
-    router.go(RoutesNames.chat);
+    router.go(RoutesNames.chats);
   } catch (error) {
     store.set({ user: null });
-    setFieldsErrors(form, (error as ErrorApi).reason);
+    setFieldsErrors(form, getTextServerError((error as ErrorApi).reason));
   } finally {
     store.set({ isLoading: false });
   }
@@ -31,12 +29,10 @@ export const signIn = async (model: SignInData, form: Block) => {
   store.set({ isLoading: true });
   try {
     await authApi.signIn(model);
-    const user = await authApi.getUserInfo();
-    store.set({ user });
-    router.go(RoutesNames.chat);
+    router.go(RoutesNames.chats);
   } catch (error) {
     store.set({ user: null });
-    setFieldsErrors(form, (error as ErrorApi).reason);
+    setFieldsErrors(form, getTextServerError((error as ErrorApi).reason));
   } finally {
     store.set({ isLoading: false });
   }
@@ -44,7 +40,8 @@ export const signIn = async (model: SignInData, form: Block) => {
 
 export const checkAuth = async () => {
   const { store } = window;
-  store.set({ isLoading: true });
+  store.set({ isLoading: true, isLoadingMessages: true });
+
   try {
     const user = await authApi.getUserInfo();
     if (!user) {
@@ -55,7 +52,7 @@ export const checkAuth = async () => {
   } catch {
     return false;
   } finally {
-    store.set({ isLoading: false });
+    store.set({ isLoading: false, isLoadingMessages: false });
   }
 };
 

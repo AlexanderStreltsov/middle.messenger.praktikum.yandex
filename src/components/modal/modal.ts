@@ -6,7 +6,6 @@ import {
   changeFormField,
   blurFormField,
   getFormStateValidated,
-  updateFieldError,
 } from '../../utils';
 import type { ModalProps } from './modal.types';
 
@@ -17,7 +16,7 @@ export class Modal extends Block<HTMLDivElement, ModalProps & BlockProps> {
       className: 'modal-wrapper',
       isOpen,
       isLoading: props?.isLoading ?? false,
-      events: { [EventNames.CLICK]: (evt: Event) => this.closeModal(evt) },
+      events: { [EventNames.CLICK]: (evt: Event) => this.closeModalClick(evt) },
       Spinner: new Spinner(),
       Form: new Form({
         ...props,
@@ -27,7 +26,7 @@ export class Modal extends Block<HTMLDivElement, ModalProps & BlockProps> {
           if (!data) {
             return;
           }
-          props.onSubmit?.(data);
+          props.onSubmit?.(evt, data);
         },
         fields: props.fields.map((field) => ({
           ...field,
@@ -37,6 +36,8 @@ export class Modal extends Block<HTMLDivElement, ModalProps & BlockProps> {
             events: {
               [EventNames.BLUR]: (evt: Event) => this.blurField(evt, field),
               [EventNames.CHANGE]: (evt: Event) => this.changeField(evt, field),
+              [EventNames.INPUT]: (evt: Event) =>
+                props?.onInputField?.(evt, field),
             },
           },
         })),
@@ -52,28 +53,35 @@ export class Modal extends Block<HTMLDivElement, ModalProps & BlockProps> {
 
   private changeField = (evt: Event, field: InputFieldProps) => {
     changeFormField(evt, this.children.Form as Block, field);
-    updateFieldError(
-      this.children.Form as Block,
-      field.inputProps.attrs.name,
-      (evt.target as HTMLInputElement).value,
-    );
   };
 
-  private closeModal = (evt: Event) => {
+  private closeModalClick = (evt: Event) => {
     const isOverlayClick = (evt.target as HTMLElement).classList.contains(
       'modal-open',
     );
 
     if (isOverlayClick) {
-      const form = (evt.currentTarget as HTMLElement).querySelector('form');
-      const input = form?.querySelector('input');
-
-      if (input) {
-        input.value = '';
-      }
-
-      this.setProps({ ...this.props, isOpen: false });
+      this.closeModal(evt);
     }
+  };
+
+  closeModal = (evt: Event) => {
+    const form =
+      (evt.currentTarget as HTMLElement)?.querySelector('form') ||
+      (evt.target as HTMLElement);
+
+    const input = form?.querySelector('input');
+    const error = form?.querySelector('.error');
+
+    if (error) {
+      error.remove();
+    }
+
+    if (input) {
+      input.value = '';
+    }
+
+    this.setProps({ ...this.props, isOpen: false });
   };
 
   render() {
@@ -95,8 +103,4 @@ const mapStateToProps = ({ isLoading }: AppState) => ({
   isLoading,
 });
 
-const ModalWithStore = connectStore(mapStateToProps)(Modal) as unknown as new (
-  props: ModalProps,
-) => Block & Modal;
-
-export default ModalWithStore;
+export default connectStore<ModalProps>(mapStateToProps)(Modal);

@@ -15,7 +15,7 @@ export const getGoEvent = (
     case NamesGoEvent.goSignin:
       return () => router?.go(RoutesNames.signin);
     case NamesGoEvent.goChat:
-      return () => router?.go(RoutesNames.chat);
+      return () => router?.go(RoutesNames.chats);
     case NamesGoEvent.goProfile:
       return () => router?.go(RoutesNames.profile);
     case NamesGoEvent.goProfileEdit:

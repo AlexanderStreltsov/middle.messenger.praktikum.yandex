@@ -6,5 +6,5 @@ export enum RoutesNames {
   profile = '/settings',
   profileEdit = '/settings-edit',
   profilePass = '/settings-edit-pass',
-  chat = '/messenger',
+  chats = '/messenger',
 }

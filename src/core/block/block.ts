@@ -18,7 +18,7 @@ export abstract class Block<
   } as const;
 
   private _element: T | null;
-  private readonly _id: string;
+  private readonly _id: string | number;
   private readonly _meta: {
     tagName: HTMLElements;
     props: P;
@@ -207,14 +207,18 @@ export abstract class Block<
     this._render();
   };
 
+  protected _componentWillUnmount = () => this.componentWillUnmount();
+
+  protected componentDidUpdate = (...args: Record<string, P>[]) => args;
+
   protected init = () => {
     this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   };
 
-  protected componentDidMount = () => {};
+  public componentDidMount = () => {};
 
-  protected componentDidUpdate = (...args: Record<string, P>[]) => args;
+  public componentWillUnmount = () => {};
 
   public getContent = () => this._element;
 
@@ -235,7 +239,7 @@ export abstract class Block<
 
   public removeDOM = () => {
     this._removeEvents();
-    this.componentWillUnmount();
+    this._componentWillUnmount();
 
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
@@ -250,6 +254,4 @@ export abstract class Block<
     this._element?.remove();
     this._element = null;
   };
-
-  public componentWillUnmount = () => {};
 }

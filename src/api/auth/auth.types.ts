@@ -1,4 +1,5 @@
 import { InputNames } from '../../constants';
+import type { User } from '../user';
 
 export interface ErrorApi {
   reason: string;
@@ -15,7 +16,7 @@ export interface SignUpData {
 }
 
 export interface SignUpResponse {
-  id: string;
+  id: number;
 }
 
 export interface SignInData {
@@ -24,21 +25,9 @@ export interface SignInData {
   [key: string]: unknown;
 }
 
-export interface UserInfoResponse {
-  id: string;
-  [InputNames.FIRST_NAME]: string;
-  [InputNames.SECOND_NAME]: string;
-  [InputNames.DISPLAY_NAME]: string;
-  [InputNames.PHONE]: string;
-  [InputNames.LOGIN]: string;
-  [InputNames.AVATAR]: string;
-  [InputNames.EMAIL]: string;
-  [key: string]: unknown;
-}
-
 export interface AuthApiBase {
   signUp: (data: SignUpData) => Promise<SignUpResponse>;
   signIn: (data: SignInData) => Promise<XMLHttpRequest>;
-  getUserInfo: () => Promise<UserInfoResponse>;
+  getUserInfo: () => Promise<User>;
   logout: () => Promise<XMLHttpRequest>;
 }

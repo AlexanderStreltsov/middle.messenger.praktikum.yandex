@@ -32,4 +32,10 @@ export const CONTROLS_PROFILE: Record<string, ButtonProps> = {
     },
     actionName: ButtonActionNames.LOGOUT,
   },
+  change: {
+    label: 'Поменять',
+    attrs: {
+      type: ButtonTypes.SUBMIT,
+    },
+  },
 };

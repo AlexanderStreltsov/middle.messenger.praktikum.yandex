@@ -1,8 +1,14 @@
-import type { UserInfoResponse, EditProfileResponse } from '../../api';
+import type { Chats, User, Message } from '../../api';
 
 export interface AppState {
   isLoading: boolean;
-  user: UserInfoResponse | EditProfileResponse | null;
+  isLoadingMessages: boolean;
+  user: User | null;
+  chats: Chats | [];
+  messages: Message[];
+  errorMessages: string | null;
+  errorChats: string | null;
+  usersSelectedChat: User[];
 }
 
 export interface StoreBase {

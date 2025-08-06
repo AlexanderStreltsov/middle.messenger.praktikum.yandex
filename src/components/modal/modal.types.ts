@@ -1,4 +1,5 @@
 import type { ButtonProps, InputFieldProps } from '../../components';
+import type { ButtonActionNames } from '../../constants';
 import type { FormState } from '../../utils';
 
 export interface ModalProps {
@@ -8,6 +9,8 @@ export interface ModalProps {
   title: string;
   classFields?: string;
   isBlur?: boolean;
-  onSubmit?: (data: FormState) => void;
+  onSubmit?: (evt: Event, data: FormState) => void;
   isLoading?: boolean;
+  actionName?: ButtonActionNames;
+  onInputField?: (evt: Event, field: InputFieldProps) => void;
 }

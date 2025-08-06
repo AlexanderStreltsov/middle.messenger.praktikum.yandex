@@ -3,15 +3,18 @@ import { type PagesDataUnionProps } from '../config';
 import { type AppState } from '../core';
 import { isEqual } from '../utils';
 
-export function connectStore(
-  mapStateToProps: (state: AppState) => Partial<Record<string, unknown>>,
+export function connectStore<P extends object = PagesDataUnionProps>(
+  mapStateToProps: (state: AppState) => Partial<P>,
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return function (Component: new (props: any) => any) {
+  return function <T extends new (props: P) => any>(
+    Component: T,
+  ): new (props: P) => InstanceType<T> {
+    //@ts-expect-error switch-off-mixin-constructor
     return class extends Component {
       private onChangeStoreCallback: () => void;
 
-      constructor(props: PagesDataUnionProps) {
+      constructor(props: P) {
         const store = window.store;
         let state = mapStateToProps(store.getState());
 

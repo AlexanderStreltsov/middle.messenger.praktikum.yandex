@@ -3,13 +3,22 @@ export {
   type ErrorApi,
   type SignInData,
   type SignUpData,
-  type UserInfoResponse,
 } from './auth';
 
 export {
   UserApi,
+  type User,
   type EditProfileData,
-  type EditProfileResponse,
   type EditPasswordData,
-  type EditAvatarResponse,
+  type SearchData,
 } from './user';
+
+export {
+  ChatsApi,
+  type Chats,
+  type ChatsItem,
+  type AddChatData,
+  type AddUserData,
+} from './chats';
+
+export { MessagesApi, type Message } from './messages';

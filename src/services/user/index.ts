@@ -1,1 +1,1 @@
-export { editProfile, editPassword, editAvatar } from './user';
+export { editProfile, editPassword, editAvatar, searchUser } from './user';

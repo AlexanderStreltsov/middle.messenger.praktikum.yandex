@@ -83,8 +83,6 @@ const mapStateToProps = ({ isLoading }: AppState) => ({
   isLoading,
 });
 
-const AuthPageWithStore = connectStore(mapStateToProps)(
+export default connectStore<AuthPageProps>(mapStateToProps)(
   withRouter(AuthPage),
-) as unknown as new (props: AuthPageProps) => Block & AuthPage;
-
-export default AuthPageWithStore;
+);

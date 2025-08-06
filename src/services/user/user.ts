@@ -1,13 +1,14 @@
 import {
   UserApi,
+  type User,
   type EditProfileData,
   type ErrorApi,
-  type UserInfoResponse,
   type EditPasswordData,
+  type SearchData,
 } from '../../api';
 import { InputNames } from '../../constants';
 import { Block } from '../../core';
-import { setFieldsErrors } from '../../utils';
+import { setFieldsErrors, getTextServerError } from '../../utils';
 import { authApi } from '../auth';
 
 const userApi = new UserApi();
@@ -22,7 +23,7 @@ export const editProfile = async (model: EditProfileData, form: Block) => {
   }
 
   Object.keys(model).forEach((key) => {
-    if (model[key] !== (user as UserInfoResponse)[key]) {
+    if (model[key] !== (user as User)[key]) {
       changedFields[key] = model[key];
     }
   });
@@ -38,7 +39,7 @@ export const editProfile = async (model: EditProfileData, form: Block) => {
   } catch (error) {
     setFieldsErrors(
       form,
-      (error as ErrorApi).reason,
+      getTextServerError((error as ErrorApi).reason),
       Object.keys(changedFields) as InputNames[],
     );
   } finally {
@@ -60,7 +61,7 @@ export const editPassword = async (
     const user = await authApi.getUserInfo();
     store.set({ user });
   } catch (error) {
-    setFieldsErrors(form, (error as ErrorApi).reason);
+    setFieldsErrors(form, getTextServerError((error as ErrorApi).reason));
   } finally {
     store.set({ isLoading: false });
   }
@@ -69,17 +70,31 @@ export const editPassword = async (
 export const editAvatar = async (
   data: FormData,
   form: Block,
-  switchOpenModal: (isOpenAction: boolean) => void,
+  closeModal: () => void,
 ) => {
   const { store } = window;
   store.set({ isLoading: true });
   try {
     const user = await userApi.editAvatar(data);
     store.set({ user });
-    switchOpenModal(false);
+    closeModal();
   } catch (error) {
-    setFieldsErrors(form, (error as ErrorApi).reason || (error as string));
+    setFieldsErrors(
+      form,
+      getTextServerError((error as ErrorApi).reason) || (error as string),
+    );
   } finally {
     store.set({ isLoading: false });
+  }
+};
+
+export const searchUser = async (data: SearchData, form: Block) => {
+  try {
+    return await userApi.search(data);
+  } catch (error) {
+    setFieldsErrors(
+      form,
+      getTextServerError((error as ErrorApi).reason) || (error as string),
+    );
   }
 };

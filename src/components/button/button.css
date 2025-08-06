@@ -36,7 +36,8 @@
 
 .button__icon_arrow-left,
 .button__icon_arrow-right,
-.button__icon_add {
+.button__icon_add,
+.button__icon_profile {
   background-position: center;
   background-size: 16px 16px;
   background-repeat: no-repeat;
@@ -53,4 +54,10 @@
 .button__icon_add {
   background-image: url('../../assets/icons/add.svg');
   background-size: 20px 20px;
+}
+
+.button__icon_profile {
+  background-image: url('../../assets/icons/profile.svg');
+  background-size: 20px 20px;
+  background-position: 50% 10%;
 }

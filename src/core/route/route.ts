@@ -47,6 +47,6 @@ export class Route<
     this.leave();
     this._block = new this._blockClass(this._props.context) as C;
     renderDom(this._props.rootQuery, this._block);
-    this._block?.dispatchComponentDidMount();
+    this._block.dispatchComponentDidMount();
   };
 }

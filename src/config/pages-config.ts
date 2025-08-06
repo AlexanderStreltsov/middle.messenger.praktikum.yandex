@@ -1,27 +1,23 @@
-import { ErrorPage, AuthPage, ProfilePage, ChatPage } from '../pages';
+import { ErrorPage, AuthPage, ProfilePage, ChatsPage } from '../pages';
 import {
   PagesNames,
   ButtonTypes,
   ButtonViewTypes,
   ProfilePageActionsGroupType,
   RoutesNames,
+  ButtonActionNames,
 } from '../constants';
 import {
   FIELDS_AUTH,
+  FIELDS_CHATS,
   FIELDS_DEFAULT,
   FIELDS_PROFILE,
-  FIELDS_CHAT_ADD_USER,
   CONTROLS_PROFILE,
   CONTROLS_SIGNIN,
   CONTROLS_SIGNUP,
-  CONTROL_CHAT_TO_PROFILE,
-  CONTROLS_CHAT_SEND_MSG,
-  CONTROLS_CHAT_USER_ACTION,
-  CONTROLS_CHAT_ADD_USER,
+  CONTROLS_CHATS,
   PROFILE_PAGE_NAV,
   PROFILE_PAGE_COMMON,
-  CONTROLS_PROFILE_CHANGE_AVATAR,
-  CHAT_MESSAGES,
 } from './parts';
 import type { PagesConfig } from './pages-config.types';
 
@@ -54,20 +50,31 @@ export const PAGES_CONFIG: PagesConfig = {
       name: PagesNames.signup,
     },
   },
-  [PagesNames.chat]: {
-    route: RoutesNames.chat,
-    template: ChatPage,
+  [PagesNames.chats]: {
+    route: RoutesNames.chats,
+    template: ChatsPage,
     props: {
-      controlProfile: CONTROL_CHAT_TO_PROFILE.profile,
+      controlsChats: [CONTROLS_CHATS.addChatOpen, CONTROLS_CHATS.goProfile],
       fieldSearch: FIELDS_DEFAULT.search,
-      messages: CHAT_MESSAGES,
+      chats: [],
+      modals: [
+        {
+          title: 'Добавить чат',
+          fields: [FIELDS_CHATS.addChat],
+          controls: [CONTROLS_CHATS.addChat],
+          actionName: ButtonActionNames.ADD_CHAT,
+        },
+        {
+          title: 'Добавить пользователя',
+          fields: [FIELDS_CHATS.addUser],
+          controls: [CONTROLS_CHATS.addUser],
+          actionName: ButtonActionNames.ADD_USER,
+        },
+      ],
       fieldsSendMsg: [FIELDS_DEFAULT.message],
-      controlsSendMsg: [CONTROLS_CHAT_SEND_MSG.send],
-      controlsUserAction: [CONTROLS_CHAT_USER_ACTION.add],
-      fieldsAddUser: [FIELDS_CHAT_ADD_USER.login],
-      controlsAddUser: [CONTROLS_CHAT_ADD_USER.add],
-      titleAddUser: 'Добавить пользователя',
-      textNoSelectChat: 'Выберите чат чтобы отправить сообщение',
+      controlsSendMsg: [CONTROLS_CHATS.sendMessage],
+      controlsUserActions: [CONTROLS_CHATS.addUserOpen],
+      textNoSelectChat: 'Выберите чат, чтобы отправить сообщение',
     },
   },
   [PagesNames.profile]: {
@@ -76,7 +83,6 @@ export const PAGES_CONFIG: PagesConfig = {
     props: {
       ...PROFILE_PAGE_NAV,
       ...PROFILE_PAGE_COMMON,
-      title: 'Иван',
       fields: [
         FIELDS_PROFILE.email,
         FIELDS_PROFILE.login,
@@ -97,12 +103,12 @@ export const PAGES_CONFIG: PagesConfig = {
         textCover: 'Поменять аватар',
       },
       fieldsChangeAvatar: [FIELDS_DEFAULT.avatar],
-      controlsChangeAvatar: [CONTROLS_PROFILE_CHANGE_AVATAR.change],
+      controlsChangeAvatar: [CONTROLS_PROFILE.change],
       titleChangeAvatar: 'Загрузите файл',
       name: PagesNames.profile,
     },
   },
-  [PagesNames['profile-edit']]: {
+  [PagesNames.profileEdit]: {
     route: RoutesNames.profileEdit,
     template: ProfilePage,
     props: {
@@ -116,29 +122,21 @@ export const PAGES_CONFIG: PagesConfig = {
         FIELDS_DEFAULT.displayName,
         FIELDS_DEFAULT.phone,
       ],
-      name: PagesNames['profile-edit'],
+      name: PagesNames.profileEdit,
     },
   },
-  [PagesNames['profile-pass-edit']]: {
+  [PagesNames.profilePassEdit]: {
     route: RoutesNames.profilePass,
     template: ProfilePage,
     props: {
       ...PROFILE_PAGE_NAV,
       ...PROFILE_PAGE_COMMON,
       fields: [
-        {
-          ...FIELDS_DEFAULT.oldPass,
-          inputProps: {
-            attrs: {
-              ...FIELDS_DEFAULT.oldPass.inputProps.attrs,
-              value: '12345Qwerty',
-            },
-          },
-        },
+        FIELDS_DEFAULT.oldPass,
         FIELDS_DEFAULT.newPass,
         FIELDS_DEFAULT.newPassConfirm,
       ],
-      name: PagesNames['profile-pass-edit'],
+      name: PagesNames.profilePassEdit,
     },
   },
   [PagesNames.error404]: {

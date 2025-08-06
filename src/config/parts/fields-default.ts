@@ -1,134 +1,61 @@
 import type { InputFieldProps } from '../../components';
 import { InputNames, InputTypes } from '../../constants';
 
+const createField = (
+  label: string,
+  name: InputNames,
+  type: InputTypes,
+  placeholder = '',
+): InputFieldProps => ({
+  label,
+  inputProps: {
+    attrs: {
+      name,
+      type,
+      ...(placeholder && { placeholder }),
+    },
+  },
+});
+
 export const FIELDS_DEFAULT: Record<string, InputFieldProps> = {
-  login: {
-    label: 'Логин',
-    inputProps: {
-      attrs: {
-        name: InputNames.LOGIN,
-        type: InputTypes.TEXT,
-      },
-    },
-  },
-  pass: {
-    label: 'Пароль',
-    inputProps: {
-      attrs: {
-        name: InputNames.PASS,
-        type: InputTypes.PASS,
-      },
-    },
-  },
-  email: {
-    label: 'Почта',
-    inputProps: {
-      attrs: {
-        name: InputNames.EMAIL,
-        type: InputTypes.EMAIL,
-      },
-    },
-  },
-  name: {
-    label: 'Имя',
-    inputProps: {
-      attrs: {
-        name: InputNames.FIRST_NAME,
-        type: InputTypes.TEXT,
-      },
-    },
-  },
-  surname: {
-    label: 'Фамилия',
-    inputProps: {
-      attrs: {
-        name: InputNames.SECOND_NAME,
-        type: InputTypes.TEXT,
-      },
-    },
-  },
-  phone: {
-    label: 'Телефон',
-    inputProps: {
-      attrs: {
-        name: InputNames.PHONE,
-        type: InputTypes.TEL,
-      },
-    },
-  },
-  passConfirm: {
-    label: 'Пароль (ещё раз)',
-    inputProps: {
-      attrs: {
-        name: InputNames.PASS_CONFIRM,
-        type: InputTypes.PASS,
-      },
-    },
-  },
-  displayName: {
-    label: 'Имя в чате',
-    inputProps: {
-      attrs: {
-        name: InputNames.DISPLAY_NAME,
-        type: InputTypes.TEXT,
-      },
-    },
-  },
-  oldPass: {
-    label: 'Старый пароль',
-    inputProps: {
-      attrs: {
-        name: InputNames.OLD_PASSWORD,
-        type: InputTypes.PASS,
-      },
-    },
-  },
-  newPass: {
-    label: 'Новый пароль',
-    inputProps: {
-      attrs: {
-        name: InputNames.NEW_PASSWORD,
-        type: InputTypes.PASS,
-      },
-    },
-  },
-  newPassConfirm: {
-    label: 'Повторите новый пароль',
-    inputProps: {
-      attrs: {
-        name: InputNames.PASS_CONFIRM,
-        type: InputTypes.PASS,
-      },
-    },
-  },
-  search: {
-    label: 'Поиск',
-    inputProps: {
-      attrs: {
-        placeholder: 'Поиск',
-        name: InputNames.SEARCH,
-        type: InputTypes.SEARCH,
-      },
-    },
-  },
-  message: {
-    label: 'Сообщение',
-    inputProps: {
-      attrs: {
-        placeholder: 'Сообщение',
-        name: InputNames.MESSAGE,
-        type: InputTypes.TEXT,
-      },
-    },
-  },
-  avatar: {
-    label: '',
-    inputProps: {
-      attrs: {
-        placeholder: '',
-        name: InputNames.AVATAR,
-        type: InputTypes.FILE,
-      },
-    },
-  },
+  login: createField('Логин', InputNames.LOGIN, InputTypes.TEXT),
+  pass: createField('Пароль', InputNames.PASS, InputTypes.PASS),
+  email: createField('Почта', InputNames.EMAIL, InputTypes.EMAIL),
+  name: createField('Имя', InputNames.FIRST_NAME, InputTypes.TEXT),
+  surname: createField('Фамилия', InputNames.SECOND_NAME, InputTypes.TEXT),
+  phone: createField('Телефон', InputNames.PHONE, InputTypes.TEL),
+  passConfirm: createField(
+    'Пароль (ещё раз)',
+    InputNames.PASS_CONFIRM,
+    InputTypes.PASS,
+  ),
+  displayName: createField(
+    'Имя в чате',
+    InputNames.DISPLAY_NAME,
+    InputTypes.TEXT,
+  ),
+  oldPass: createField(
+    'Старый пароль',
+    InputNames.OLD_PASSWORD,
+    InputTypes.PASS,
+  ),
+  newPass: createField(
+    'Новый пароль',
+    InputNames.NEW_PASSWORD,
+    InputTypes.PASS,
+  ),
+  newPassConfirm: createField(
+    'Повторите новый пароль',
+    InputNames.PASS_CONFIRM,
+    InputTypes.PASS,
+  ),
+  search: createField('Поиск', InputNames.SEARCH, InputTypes.SEARCH, 'Поиск'),
+  message: createField(
+    'Сообщение',
+    InputNames.MESSAGE,
+    InputTypes.TEXT,
+    'Сообщение',
+  ),
+  avatar: createField('', InputNames.AVATAR, InputTypes.FILE, ''),
+  addChat: createField('Название чата', InputNames.ADD_CHAT, InputTypes.TEXT),
 };

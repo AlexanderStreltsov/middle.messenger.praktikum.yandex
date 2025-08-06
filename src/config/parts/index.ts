@@ -1,14 +1,9 @@
 export { FIELDS_AUTH } from './fields-auth';
+export { FIELDS_CHATS } from './fields-chats';
 export { FIELDS_DEFAULT } from './fields-default';
 export { FIELDS_PROFILE } from './fields-profile';
-export { FIELDS_CHAT_ADD_USER } from './fields-chat-add-user';
 export { CONTROLS_PROFILE } from './controls-profile';
 export { CONTROLS_SIGNIN } from './controls-signin';
 export { CONTROLS_SIGNUP } from './controls-signup';
-export { CONTROL_CHAT_TO_PROFILE } from './controls-chat';
-export { CONTROLS_CHAT_SEND_MSG } from './controls-chat-send-msg';
-export { CONTROLS_CHAT_USER_ACTION } from './controls-chat-user-action';
-export { CONTROLS_CHAT_ADD_USER } from './controls-chat-add-user';
+export { CONTROLS_CHATS } from './controls-chats';
 export { PROFILE_PAGE_NAV, PROFILE_PAGE_COMMON } from './profile-page-common';
-export { CONTROLS_PROFILE_CHANGE_AVATAR } from './controls-profile-change-avatar';
-export { CHAT_MESSAGES } from './chat-messages';

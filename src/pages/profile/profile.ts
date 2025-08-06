@@ -5,6 +5,7 @@ import {
   Modal,
   Spinner,
   type ButtonProps,
+  ModalClass,
 } from '../../components';
 import {
   HTMLElements,
@@ -46,7 +47,7 @@ export class ProfilePage extends Block<
       }),
       Avatar: new Avatar({
         ...props.avatar,
-        onClick: () => this.switchModalOpen(),
+        onClick: () => this.openModalClick(),
       }),
       Form: new Form({
         ...props,
@@ -80,15 +81,15 @@ export class ProfilePage extends Block<
         controls: props.controlsChangeAvatar ?? [],
         title: props.titleChangeAvatar ?? '',
         classFields: 'profile-section__modal-form-fields',
-        onSubmit: (data) => this.submitChangeAvatar(data),
+        onSubmit: (evt, data) => this.submitChangeAvatar(evt, data),
       }),
     });
   }
 
-  private switchModalOpen = (isOpenAction: boolean = true) => {
+  private openModalClick = () => {
     if (this.props.avatar.isChange) {
       const modal = this.children.Modal as Block;
-      modal.setProps({ isOpen: isOpenAction });
+      modal.setProps({ isOpen: true });
     }
   };
 
@@ -111,19 +112,25 @@ export class ProfilePage extends Block<
       return;
     }
 
-    if (name === PagesNames['profile-edit']) {
+    if (name === PagesNames.profileEdit) {
       UserServices.editProfile(data as EditProfileData, form);
     }
 
-    if (name === PagesNames['profile-pass-edit']) {
+    if (name === PagesNames.profilePassEdit) {
       UserServices.editPassword(data as EditPasswordData, form);
     }
   };
 
-  private submitChangeAvatar = ({ avatar }: FormState) => {
-    const modal = this.children.Modal as Block;
+  private submitChangeAvatar = (evt: Event, { avatar }: FormState) => {
+    const modal = this.children.Modal as unknown as ModalClass;
     const form = modal.getChildren().Form as Block;
-    UserServices.editAvatar(avatar as FormData, form, this.switchModalOpen);
+    const closeModal = () => {
+      if (this.props.avatar.isChange) {
+        modal.closeModal(evt);
+      }
+    };
+
+    UserServices.editAvatar(avatar as FormData, form, closeModal);
   };
 
   render() {
@@ -148,7 +155,7 @@ export class ProfilePage extends Block<
                 : ''
             }
             ${
-              name && title === PagesNames['profile']
+              title && name === PagesNames['profile']
                 ? '<h1>{{ title }}</h1>'
                 : ''
             }
@@ -164,11 +171,9 @@ export class ProfilePage extends Block<
 const mapStateToProps = ({ isLoading, user }: AppState) => ({
   isLoading: isLoading,
   user: user,
-  title: user?.[InputNames.FIRST_NAME],
+  title: user?.[InputNames.DISPLAY_NAME],
 });
 
-const ProfilePageWithStore = connectStore(mapStateToProps)(
+export default connectStore<ProfilePageProps>(mapStateToProps)(
   withRouter(ProfilePage),
-) as unknown as new (props: ProfilePageProps) => Block & ProfilePage;
-
-export default ProfilePageWithStore;
+);

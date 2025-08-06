@@ -12,4 +12,5 @@ export enum InputNames {
   SEARCH = 'search',
   MESSAGE = 'message',
   AVATAR = 'avatar',
+  ADD_CHAT = 'title',
 }

@@ -1,3 +1,3 @@
 export { Store } from './store';
-export { defaultState } from './default-state';
+export { DEFAULT_STATE } from './default-state';
 export type { AppState } from './store.types';

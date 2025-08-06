@@ -1,11 +1,11 @@
 import { HTTPTransport } from '../../core';
 import { AuthApiPaths } from '../../constants';
+import type { User } from '../user';
 import type {
   AuthApiBase,
   SignUpData,
   SignInData,
   SignUpResponse,
-  UserInfoResponse,
 } from './auth.types';
 
 const authApi = new HTTPTransport(AuthApiPaths.Auth);
@@ -20,7 +20,7 @@ export class AuthApi implements AuthApiBase {
   }
 
   async getUserInfo() {
-    return authApi.get<UserInfoResponse>(AuthApiPaths.User);
+    return authApi.get<User>(AuthApiPaths.User);
   }
 
   async logout() {
