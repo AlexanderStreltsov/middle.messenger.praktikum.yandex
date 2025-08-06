@@ -10,6 +10,7 @@ export class InputField extends Block<
   constructor(props: InputFieldProps) {
     super(HTMLElements.LABEL, {
       ...props,
+      options: props?.options ?? [],
       attrs: { for: props.inputProps.attrs.name },
       className: 'input',
       value: props.inputProps.attrs.value ?? '',
@@ -20,9 +21,10 @@ export class InputField extends Block<
   render() {
     const {
       inputProps: {
-        attrs: { placeholder },
+        attrs: { placeholder, list },
       },
       error,
+      options,
     } = this.props;
 
     return `
@@ -33,6 +35,13 @@ export class InputField extends Block<
           ? `<span class="input__error {{#if error}}error{{/if}}">
               {{ error }}
             </span>`
+          : ''
+      }
+      ${
+        list
+          ? `<datalist id="${list}">
+              ${options?.map(({ id, value }) => `<option id="${id}" value="${value}">`).join('')}
+            </datalist>`
           : ''
       }
     `;

@@ -7,6 +7,7 @@ export interface InputProps {
     value?: string;
     disabled?: string;
     placeholder?: string;
+    list?: string;
   };
   events?: { [key in EventNames]?: EventListener };
 }
@@ -16,4 +17,5 @@ export interface InputFieldProps {
   label: string;
   error?: string;
   inputProps: InputProps;
+  options?: { id: number; value: string }[];
 }

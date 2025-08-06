@@ -23,10 +23,10 @@ export class EventBus<E extends string, T> implements EventBusBase<E, T> {
     );
   };
 
-  public emit = (evt: E, props?: T): void => {
+  public emit = (evt: E, ...args: T[]): void => {
     if (!this.listeners[evt]) {
       throw new Error(`Нет события: ${evt}`);
     }
-    this.listeners[evt].forEach((listener) => listener(props));
+    this.listeners[evt].forEach((listener) => listener(...args));
   };
 }

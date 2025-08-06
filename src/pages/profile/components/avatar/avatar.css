@@ -9,6 +9,19 @@
   position: relative;
 }
 
+.avatar-wrapper__img_custom {
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+.avatar-wrapper__img_default {
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+}
+
 .avatar-wrapper__cover {
   display: flex;
   align-items: center;

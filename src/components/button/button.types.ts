@@ -1,4 +1,9 @@
-import type { ButtonTypes, ButtonViewTypes } from '../../constants';
+import type {
+  ButtonTypes,
+  ButtonViewTypes,
+  NamesGoEvent,
+  ButtonActionNames,
+} from '../../constants';
 
 export interface ButtonProps {
   className?: string;
@@ -7,5 +12,7 @@ export interface ButtonProps {
   attrs: {
     type: ButtonTypes;
   };
+  nameGoEvent?: NamesGoEvent;
+  actionName?: ButtonActionNames;
   onClick?: (evt: Event) => void;
 }

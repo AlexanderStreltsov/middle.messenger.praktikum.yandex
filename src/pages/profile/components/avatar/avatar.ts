@@ -1,5 +1,7 @@
 import { HTMLElements, EventNames } from '../../../../constants';
-import { Block, type BlockProps } from '../../../../core';
+import { Block, type BlockProps, type AppState } from '../../../../core';
+import { connectStore } from '../../../../hocs';
+import { getAvatarUrl } from '../../../../utils';
 import type { AvatarProps } from './avatar.types';
 
 export class Avatar extends Block<HTMLDivElement, AvatarProps & BlockProps> {
@@ -8,12 +10,17 @@ export class Avatar extends Block<HTMLDivElement, AvatarProps & BlockProps> {
       ...props,
       className: 'avatar-wrapper',
       events: { [EventNames.CLICK]: props.onClick },
+      avatarClass: props.avatarClass ?? 'default',
     });
   }
 
   render() {
     return `
-      <img src="{{ src }}" alt="{{ alt }}" />
+      <img
+        alt="{{ alt }}" 
+        src="{{ src }}"
+        class="avatar-wrapper__img_${this.props.avatarClass}"
+      />
 
       {{#if isChange}}
         <div class="avatar-wrapper__cover">
@@ -25,3 +32,10 @@ export class Avatar extends Block<HTMLDivElement, AvatarProps & BlockProps> {
     `;
   }
 }
+
+const mapStateToProps = ({ user }: AppState) => ({
+  src: getAvatarUrl(user?.avatar),
+  avatarClass: user?.avatar ? 'custom' : 'default',
+});
+
+export default connectStore<AvatarProps>(mapStateToProps)(Avatar);

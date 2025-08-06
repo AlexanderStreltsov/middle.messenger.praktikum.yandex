@@ -16,7 +16,8 @@ export interface BlockBase<
   getChildren: () => Record<string, Block | Block[]>;
   getProps: () => P;
   dispatchComponentDidMount: () => void;
+  componentDidMount: () => void;
   setProps: (nextProps: P) => void;
-  show: () => void;
-  hide: () => void;
+  removeDOM: () => void;
+  componentWillUnmount: () => void;
 }
