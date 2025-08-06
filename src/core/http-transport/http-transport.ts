@@ -93,7 +93,11 @@ export class HTTPTransport implements HTTPTransportBase {
   public delete: RequestHttpMethod = (url, options = {}) =>
     this.request(
       `${this.apiUrl}${url}`,
-      { ...options, method: FETCH_METHODS.DELETE },
+      {
+        ...options,
+        headers: { 'Content-Type': 'application/json' },
+        method: FETCH_METHODS.DELETE,
+      },
       options.timeout,
     );
 }

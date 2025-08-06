@@ -1,1 +1,8 @@
-export { chatsApi, getChats, addChat, getMessages, addUser } from './chats';
+export {
+  chatsApi,
+  getChats,
+  addChat,
+  getMessages,
+  addUser,
+  deleteUser,
+} from './chats';

@@ -88,3 +88,29 @@ export const addUser = async (
     store.set({ isLoading: false, isLoadingMessages: false });
   }
 };
+
+export const deleteUser = async (
+  data: AddUserData,
+  form: Block,
+  chatId: number,
+  MessagesServices: MessagesServices,
+  closeModal: () => void,
+) => {
+  const { store } = window;
+  store.set({ isLoading: true, isLoadingMessages: true });
+  try {
+    await chatsApi.deleteChatUser(data);
+    const usersChat = await chatsApi.getChatUsers(chatId);
+    store.set({ usersSelectedChat: usersChat });
+    await MessagesServices.createChatsConnection(chatId);
+    closeModal();
+  } catch (error) {
+    MessagesServices.closeChatsConnection();
+    setFieldsErrors(
+      form,
+      getTextServerError((error as ErrorApi).reason) || (error as string),
+    );
+  } finally {
+    store.set({ isLoading: false, isLoadingMessages: false });
+  }
+};

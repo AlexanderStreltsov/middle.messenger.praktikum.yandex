@@ -36,4 +36,8 @@ export class ChatsApi implements ChatsApiBase {
   async getChatUsers(chatId: number) {
     return chatsApi.get<User[]>(`/${chatId}${ChatsApiPaths.Users}`);
   }
+
+  async deleteChatUser(data: AddUserData) {
+    return chatsApi.delete(ChatsApiPaths.Users, { data });
+  }
 }

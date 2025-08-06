@@ -4,4 +4,6 @@ export enum ButtonActionNames {
   ADD_CHAT_OPEN = 'addChatOpen',
   ADD_USER = 'addUser',
   ADD_USER_OPEN = 'addUserOpen',
+  DELETE_USER = 'deleteUser',
+  DELETE_USER_OPEN = 'deleteUserOpen',
 }

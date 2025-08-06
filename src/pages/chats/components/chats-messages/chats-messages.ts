@@ -68,7 +68,7 @@ export class ChatsMessages extends Block<
                 <img src="${getAvatarUrl(selectedChat?.avatar)}" alt="" />
               </div>
               <h2>${selectedChat?.title}</h2>
-              <div>
+              <div class="chat-main-section__controls">
                 {{#each ControlsUserActions}}
                   {{{ this }}}
                 {{/each}}

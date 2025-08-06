@@ -56,4 +56,20 @@ export const CONTROLS_CHATS: Record<string, ButtonProps> = {
       type: ButtonTypes.SUBMIT,
     },
   },
+  deleteUser: {
+    label: 'Удалить',
+    attrs: {
+      type: ButtonTypes.SUBMIT,
+    },
+    actionName: ButtonActionNames.DELETE_USER,
+  },
+  deleteUserOpen: {
+    label: '',
+    typeView: ButtonViewTypes.LINK,
+    className: 'button__icon button__icon_delete',
+    attrs: {
+      type: ButtonTypes.BUTTON,
+    },
+    actionName: ButtonActionNames.DELETE_USER_OPEN,
+  },
 };

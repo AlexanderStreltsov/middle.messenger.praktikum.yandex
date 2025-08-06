@@ -36,4 +36,5 @@ export interface ChatsApiBase {
   getMessages: (chatId: number) => Promise<Chats>;
   addUser: (data: AddUserData) => Promise<XMLHttpRequest>;
   getToken: (chatId: number) => Promise<Token>;
+  deleteChatUser: (data: AddUserData) => Promise<XMLHttpRequest>;
 }

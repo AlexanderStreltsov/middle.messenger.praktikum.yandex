@@ -42,7 +42,7 @@ export class ChatsPage extends Block<HTMLElement, ChatsPageProps & BlockProps> {
             ...control,
             onClick: () => {
               if (control.actionName === ButtonActionNames.ADD_CHAT_OPEN) {
-                this.addOpenClick(ButtonActionNames.ADD_CHAT);
+                this.modalOpenClick(ButtonActionNames.ADD_CHAT);
                 return;
               }
 
@@ -74,7 +74,12 @@ export class ChatsPage extends Block<HTMLElement, ChatsPageProps & BlockProps> {
               ...control,
               onClick: () => {
                 if (control.actionName === ButtonActionNames.ADD_USER_OPEN) {
-                  this.addOpenClick(ButtonActionNames.ADD_USER);
+                  this.modalOpenClick(ButtonActionNames.ADD_USER);
+                  return;
+                }
+
+                if (control.actionName === ButtonActionNames.DELETE_USER_OPEN) {
+                  this.modalOpenClick(ButtonActionNames.DELETE_USER);
                   return;
                 }
               },
@@ -96,6 +101,11 @@ export class ChatsPage extends Block<HTMLElement, ChatsPageProps & BlockProps> {
                 this.addUserClick(evt, data, modal.actionName);
                 return;
               }
+
+              if (modal.actionName === ButtonActionNames.DELETE_USER) {
+                this.deleteUserClick(evt, data, modal.actionName);
+                return;
+              }
             },
             onInputField: debounce((evt, field) => this.searchUser(evt, field)),
             isBlur: true,
@@ -112,8 +122,25 @@ export class ChatsPage extends Block<HTMLElement, ChatsPageProps & BlockProps> {
     ) as Block;
   };
 
-  private addOpenClick = (name: ButtonActionNames) => {
+  private modalOpenClick = (name: ButtonActionNames) => {
     const modal = this.getModal(name);
+
+    if (name === ButtonActionNames.DELETE_USER) {
+      const { usersSelectedChat, user: currUser } =
+        window.store.getState() as AppState;
+      const form = modal.getChildren().Form as Block;
+      const deleteUserField = getFieldComponent(form, InputNames.LOGIN);
+
+      const options = usersSelectedChat
+        ?.filter((user) => user.id !== currUser?.id)
+        ?.map((user) => ({
+          value: user.login,
+          id: user.id,
+        }));
+
+      deleteUserField?.setProps({ options });
+    }
+
     modal.setProps({ isOpen: true });
   };
 
@@ -213,12 +240,15 @@ export class ChatsPage extends Block<HTMLElement, ChatsPageProps & BlockProps> {
       'datalist',
     ) as HTMLDataListElement;
 
-    const [{ id: userId }] = Array.from(datalist.options).filter(
+    const [option] = Array.from(datalist.options).filter(
       (option) => option.value === data.login,
     );
 
     ChatsServices.addUser(
-      { users: [Number(userId)], chatId: Number(this.props.selectedChatId) },
+      {
+        users: [Number(option?.id)],
+        chatId: Number(this.props.selectedChatId),
+      },
       form,
       selectedChatId,
       this.props.MessagesServices,
@@ -238,6 +268,40 @@ export class ChatsPage extends Block<HTMLElement, ChatsPageProps & BlockProps> {
 
     const message = data[InputNames.MESSAGE] as string;
     this.props.MessagesServices.sendMessage(message);
+  };
+
+  private deleteUserClick = (
+    evt: Event,
+    data: FormState,
+    name: ButtonActionNames,
+  ) => {
+    if (!this.props.MessagesServices) {
+      return;
+    }
+
+    const modal = this.getModal(name);
+    const form = modal.getChildren().Form as Block;
+    const selectedChatId = this.props.selectedChatId as number;
+    const closeModal = this.getCloseModal(evt, name);
+
+    const datalist = (evt.target as HTMLElement).querySelector(
+      'datalist',
+    ) as HTMLDataListElement;
+
+    const [option] = Array.from(datalist.options).filter(
+      (option) => option.value === data.login,
+    );
+
+    ChatsServices.deleteUser(
+      {
+        users: [Number(option?.id)],
+        chatId: Number(this.props.selectedChatId),
+      },
+      form,
+      selectedChatId,
+      this.props.MessagesServices,
+      closeModal,
+    );
   };
 
   componentDidMount = () => ChatsServices.getChats();

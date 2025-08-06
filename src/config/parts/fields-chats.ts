@@ -13,4 +13,14 @@ export const FIELDS_CHATS = {
     },
     attrs: { for: InputNames.LOGIN },
   },
+  deleteUser: {
+    ...FIELDS_DEFAULT.login,
+    inputProps: {
+      attrs: {
+        ...FIELDS_DEFAULT.login.inputProps.attrs,
+        list: 'deleteUser',
+      },
+    },
+    attrs: { for: InputNames.LOGIN },
+  },
 };
