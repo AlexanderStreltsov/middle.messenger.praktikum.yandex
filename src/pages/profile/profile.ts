@@ -1,7 +1,31 @@
-import { Button, Form, Modal } from '../../components';
-import { HTMLElements, EventNames } from '../../constants';
-import { Block, type BlockProps } from '../../core';
-import { changeFormField, blurFormField, submitForm } from '../../utils';
+import type { EditProfileData, EditPasswordData } from '../../api';
+import {
+  Button,
+  Form,
+  Modal,
+  Spinner,
+  type ButtonProps,
+  ModalClass,
+} from '../../components';
+import {
+  HTMLElements,
+  EventNames,
+  NamesGoEvent,
+  InputNames,
+  ButtonActionNames,
+  PagesNames,
+} from '../../constants';
+import { Block, type BlockProps, type AppState } from '../../core';
+import { withRouter, connectStore } from '../../hocs';
+import * as AuthServices from '../../services/auth';
+import * as UserServices from '../../services/user';
+import {
+  changeFormField,
+  blurFormField,
+  getGoEvent,
+  getFormStateValidated,
+  type FormState,
+} from '../../utils';
 import { Avatar } from './components';
 import type { ProfilePageProps } from './profile.types';
 
@@ -12,25 +36,33 @@ export class ProfilePage extends Block<
   constructor(props: ProfilePageProps) {
     super(HTMLElements.MAIN, {
       ...props,
+      title: props.title ?? '',
+      isLoading: props?.isLoading ?? false,
       className: 'content content_two-column',
+      Spinner: new Spinner(),
       BackButton: new Button({
         ...props.backButton,
         className: 'button__icon_arrow-left',
+        onClick: getGoEvent(NamesGoEvent.goBack, props.router),
       }),
       Avatar: new Avatar({
         ...props.avatar,
-        onClick: () => this.changeAvatarClick(),
+        onClick: () => this.openModalClick(),
       }),
       Form: new Form({
         ...props,
         isInputRow: true,
         classFields: 'profile-form__fields',
         classControls: `profile-form__controls profile-form__controls_${props.controlsViewType}`,
-        onSubmit: (evt: Event) => submitForm(evt, this.children.Form as Block),
+        onSubmit: (evt: Event) => this.submit(evt, props.name),
         fields: props.fields.map((field) => ({
           ...field,
           inputProps: {
-            attrs: { ...field.inputProps.attrs },
+            attrs: {
+              ...field.inputProps.attrs,
+              value:
+                (props.user?.[field.inputProps.attrs.name] as string) ?? '',
+            },
             events: {
               [EventNames.BLUR]: (evt: Event) =>
                 blurFormField(evt, this.children.Form as Block, field),
@@ -39,38 +71,109 @@ export class ProfilePage extends Block<
             },
           },
         })),
+        controls: props.controls.map((control) => ({
+          ...control,
+          onClick: () => this.formControlClick(control),
+        })),
       }),
       Modal: new Modal({
         fields: props.fieldsChangeAvatar ?? [],
         controls: props.controlsChangeAvatar ?? [],
         title: props.titleChangeAvatar ?? '',
         classFields: 'profile-section__modal-form-fields',
+        onSubmit: (evt, data) => this.submitChangeAvatar(evt, data),
       }),
     });
   }
 
-  private changeAvatarClick = () => {
+  private openModalClick = () => {
     if (this.props.avatar.isChange) {
       const modal = this.children.Modal as Block;
       modal.setProps({ isOpen: true });
     }
   };
 
+  private formControlClick = ({ nameGoEvent, actionName }: ButtonProps) => {
+    if (actionName === ButtonActionNames.LOGOUT) {
+      AuthServices.logout();
+      return;
+    }
+
+    getGoEvent(nameGoEvent, this.props.router)?.();
+  };
+
+  private submit = (evt: Event, name: PagesNames) => {
+    evt.preventDefault();
+
+    const form = this.children.Form as Block;
+    const data = getFormStateValidated(form);
+
+    if (!data) {
+      return;
+    }
+
+    if (name === PagesNames.profileEdit) {
+      UserServices.editProfile(data as EditProfileData, form);
+    }
+
+    if (name === PagesNames.profilePassEdit) {
+      UserServices.editPassword(data as EditPasswordData, form);
+    }
+  };
+
+  private submitChangeAvatar = (evt: Event, { avatar }: FormState) => {
+    const modal = this.children.Modal as unknown as ModalClass;
+    const form = modal.getChildren().Form as Block;
+    const closeModal = () => {
+      if (this.props.avatar.isChange) {
+        modal.closeModal(evt);
+      }
+    };
+
+    UserServices.editAvatar(avatar as FormData, form, closeModal);
+  };
+
   render() {
+    const { name, title } = this.props;
+
     return `
       <nav class="profile-nav">
         {{{ BackButton }}}
       </nav>
       <section class="profile-section">
         <div class="profile-section__wrapper">
-          <div class="profile-section__avatar">
-            {{{ Avatar }}}
-          </div>
-          ${this.props.title ? '<h1>{{ title }}</h1>' : ''}
-          {{{ Form }}}
+          {{#if isLoading}}
+            {{{ Spinner }}}
+          {{else}}
+            ${
+              name === PagesNames['profile']
+                ? `
+                    <div class="profile-section__avatar">
+                      {{{ Avatar }}}
+                    </div>
+                  `
+                : ''
+            }
+            ${
+              title && name === PagesNames['profile']
+                ? '<h1>{{ title }}</h1>'
+                : ''
+            }
+            {{{ Form }}}
+          {{/if}}
         </div>
       </section>
       {{{ Modal }}}
     `;
   }
 }
+
+const mapStateToProps = ({ isLoading, user }: AppState) => ({
+  isLoading: isLoading,
+  user: user,
+  title: user?.[InputNames.DISPLAY_NAME],
+});
+
+export default connectStore<ProfilePageProps>(mapStateToProps)(
+  withRouter(ProfilePage),
+);

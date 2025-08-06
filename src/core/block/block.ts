@@ -18,7 +18,7 @@ export abstract class Block<
   } as const;
 
   private _element: T | null;
-  private readonly _id: string;
+  private readonly _id: string | number;
   private readonly _meta: {
     tagName: HTMLElements;
     props: P;
@@ -199,22 +199,26 @@ export abstract class Block<
 
   private _componentDidMount = () => this.componentDidMount();
 
-  private _componentDidUpdate = (props?: Record<string, P>) => {
-    const response = this.componentDidUpdate(props);
+  private _componentDidUpdate = (...args: Record<string, P>[]) => {
+    const response = this.componentDidUpdate(...args);
     if (!response) {
       return;
     }
     this._render();
   };
 
+  protected _componentWillUnmount = () => this.componentWillUnmount();
+
+  protected componentDidUpdate = (...args: Record<string, P>[]) => args;
+
   protected init = () => {
     this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   };
 
-  protected componentDidMount = () => {};
+  public componentDidMount = () => {};
 
-  protected componentDidUpdate = (props?: Record<string, P>) => props;
+  public componentWillUnmount = () => {};
 
   public getContent = () => this._element;
 
@@ -233,19 +237,21 @@ export abstract class Block<
     Object.assign(this.props, nextProps);
   };
 
-  public show = () => {
-    const element = this.getContent();
+  public removeDOM = () => {
+    this._removeEvents();
+    this._componentWillUnmount();
 
-    if (element) {
-      element.style.display = 'block';
-    }
-  };
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((component) => {
+          component.removeDOM();
+        });
+      } else {
+        child.removeDOM();
+      }
+    });
 
-  public hide = () => {
-    const element = this.getContent();
-
-    if (element) {
-      element.style.display = 'none';
-    }
+    this._element?.remove();
+    this._element = null;
   };
 }

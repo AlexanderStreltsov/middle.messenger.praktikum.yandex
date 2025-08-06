@@ -1,0 +1,6 @@
+export interface RouteBase {
+  navigate: (pathname: string) => void;
+  leave: () => void;
+  match: (pathname: string) => boolean;
+  render: () => void;
+}

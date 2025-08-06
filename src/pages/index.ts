@@ -1,10 +1,15 @@
-export { AuthPage, type AuthPageProps } from './auth';
-export { ErrorPage, type ErrorPageProps } from './error';
-export { NavigatePage, type NavigatePageProps } from './navigate';
-export { ProfilePage, type ProfilePageProps } from './profile';
+export { AuthPage, AuthPageClass, type AuthPageProps } from './auth';
+export { ErrorPage, ErrorPageClass, type ErrorPageProps } from './error';
+
 export {
-  ChatPage,
-  type ChatPageProps,
-  type ChatItemProps,
+  ProfilePage,
+  ProfilePageClass,
+  type ProfilePageProps,
+} from './profile';
+
+export {
+  ChatsPage,
+  ChatsPageClass,
+  type ChatsPageProps,
   type MessageProps,
-} from './chat';
+} from './chats';

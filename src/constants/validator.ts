@@ -80,4 +80,12 @@ export const VALIDATOR: Validator = {
     reg: new RegExp(/^.*$/),
     error: 'Файл не выбран',
   },
+  [InputNames.ADD_CHAT]: {
+    min: 1,
+    reg: new RegExp(/^.*$/),
+    error: 'Введите название чата',
+  },
 };
+
+export const ERROR_CONFIRM_PASSWORD = 'Пароли не совпадают';
+export const ERROR_NEW_PASSWORD = 'Новый пароль совпадает со старым';
