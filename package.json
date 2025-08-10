@@ -16,7 +16,8 @@
     "stylelint": "stylelint \"src/**/*.css\"",
     "stylelint:fix": "stylelint --fix \"src/**/*.css\"",
     "test": "mocha",
-    "check": "npm run typecheck && npm run lint && npm run stylelint && npm run format:check && npm run test && npm run build"
+    "check": "npm run typecheck && npm run lint && npm run stylelint && npm run format:check && npm run test && npm run build",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@eslint/js": "9.21.0",
@@ -32,6 +33,7 @@
     "eslint-config-prettier": "10.0.2",
     "eslint-plugin-prettier": "5.2.3",
     "globals": "16.0.0",
+    "husky": "9.1.7",
     "jsdom": "26.1.0",
     "mocha": "11.7.1",
     "prettier": "3.5.2",
