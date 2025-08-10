@@ -1,9 +1,11 @@
-# Веб-приложение «Чат» &middot; [![Test Status sprint_3](https://github.com/AlexanderStreltsov/middle.messenger.praktikum.yandex/actions/workflows/tests.yml/badge.svg?branch=sprint_3)](https://github.com/AlexanderStreltsov/middle.messenger.praktikum.yandex/actions) [![Netlify Status](https://api.netlify.com/api/v1/badges/060f48ca-4105-4d28-b28f-29be3452c369/deploy-status?branch=deploy)](https://app.netlify.com/sites/streltsov-middle-messenger-yp/deploys)
+# Веб-приложение «Чат» &middot; [![Test Status sprint_4](https://github.com/AlexanderStreltsov/middle.messenger.praktikum.yandex/actions/workflows/tests.yml/badge.svg?branch=sprint_4)](https://github.com/AlexanderStreltsov/middle.messenger.praktikum.yandex/actions) [![Netlify Status](https://api.netlify.com/api/v1/badges/060f48ca-4105-4d28-b28f-29be3452c369/deploy-status?branch=deploy)](https://app.netlify.com/sites/streltsov-middle-messenger-yp/deploys)
 
 Реализация верстки приложения с помощью шаблонизатора handlebars.
 Добавлен класс Block для реализации страниц и компонентов приложения.
 Добавлены классы для работы с роутингом и стором приложения.
 Реализована работа с api.
+Добавлены тесты mocha + chai + sinon.
+Добавлен хук pre-commit с использованием husky.
 
 ## Дизайн
 
@@ -18,6 +20,8 @@
 Запустить проект в режиме разработки: `npm run dev`
 
 Запустить проект на localhost: `npm run start`
+
+Запустить тесты: `npm run test`
 
 Запустить общую проверку кода `npm run check`
 

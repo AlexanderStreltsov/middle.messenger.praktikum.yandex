@@ -19,5 +19,8 @@
     "noUncheckedSideEffectImports": true,
     "noImplicitAny": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "ts-node": {
+    "experimentalSpecifierResolution": "node"
+  }
 }
